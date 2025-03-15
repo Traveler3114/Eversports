@@ -1,0 +1,14 @@
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:Eversports"
+       x:Class="Eversports.Shells.AppShellLogin"
+       Shell.NavBarIsVisible="False">
+    <TabBar>
+        <Tab>
+            <ShellContent Title="Login" ContentTemplate="{DataTemplate local:LoginPage}" />
+            <ShellContent Title="Register" ContentTemplate="{DataTemplate local:RegistrationPage}" />
+        </Tab>
+    </TabBar>
+</Shell>
+
+

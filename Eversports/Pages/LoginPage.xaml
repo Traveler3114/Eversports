@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eversports.LoginPage">
+    <Grid Padding="30" RowSpacing="20">
+
+        <!-- Definiranje koliko redova Grid ima i njihova svojstvva -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Entry
+                Grid.Row="0"
+                x:Name="EmailEntry"
+                Placeholder="E-mail"
+                Keyboard="Default"
+                HorizontalOptions="Fill" />
+
+        <Entry
+                Grid.Row="1"
+                x:Name="PasswordEntry"
+                Placeholder="Password"
+                IsPassword="True"
+                HorizontalOptions="Fill" />
+
+        <HorizontalStackLayout
+                Grid.Row="2"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+            <CheckBox
+                    x:Name="RememberMeCheckBox"
+                    IsChecked="False" />
+            <Label
+                    Text="Remember me"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Start" />
+        </HorizontalStackLayout>
+        <Button
+                Grid.Row="3"
+                x:Name="LoginButton"
+                Text="Login"
+                Clicked="OnLoginButtonClicked"
+                HorizontalOptions="Fill" />
+    </Grid>
+</ContentPage>

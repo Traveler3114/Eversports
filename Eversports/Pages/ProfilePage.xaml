@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Eversports.ProfilePage">
+    <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+        <Label
+                Text="My Profile"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+            <Entry
+                x:Name="NameEntry"
+                Placeholder="Name"
+                Keyboard="Default"
+                HorizontalOptions="Fill" 
+                Grid.Column="0"/>
+            <Entry
+                x:Name="SurnameEntry"
+                Placeholder="Surname"
+                Keyboard="Default"
+                HorizontalOptions="Fill" 
+                Grid.Column="1"/>
+        </Grid>
+        <Entry
+                x:Name="EmailEntry"
+                Placeholder="Email"
+                Keyboard="Email"
+                HorizontalOptions="Fill" />
+        <Entry
+                x:Name="AddressEntry"
+                Placeholder="Address"
+                Keyboard="Default"
+                HorizontalOptions="Fill" />
+        <Entry
+                x:Name="PhoneNumberEntry"
+                Placeholder="Phone number"
+                Keyboard="Default"
+                HorizontalOptions="Fill" />
+
+        <Entry
+                x:Name="PasswordEntry"
+                Placeholder="Password"
+                IsPassword="True"
+                HorizontalOptions="Fill" />
+
+        <Button
+                x:Name="SaveButton"
+                Text="Save"
+                HorizontalOptions="Fill" />
+    </VerticalStackLayout>
+</ContentPage>
