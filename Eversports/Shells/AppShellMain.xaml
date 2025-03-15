@@ -4,7 +4,7 @@
        xmlns:local="clr-namespace:Eversports"
        x:Class="Eversports.Shells.AppShellMain"
        FlyoutBehavior="Flyout">
-    <FlyoutItem Title="Eversports">
+    <FlyoutItem Title="Sports">
         <ShellContent 
             ContentTemplate="{DataTemplate local:ProfilePage}" />
     </FlyoutItem>
