@@ -6,7 +6,7 @@
        FlyoutBehavior="Flyout">
     <FlyoutItem Title="Sports">
         <ShellContent 
-            ContentTemplate="{DataTemplate local:SportsPage}" />
+            ContentTemplate="{DataTemplate local:ProfilePage}" />
     </FlyoutItem>
     <FlyoutItem Title="Looking for players">
         <ShellContent 

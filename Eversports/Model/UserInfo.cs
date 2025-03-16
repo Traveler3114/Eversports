@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eversports.Model
 {
-    class UserInfo
+    public class UserInfo
     {
         //Umjesto da pisem
         // private int id; i

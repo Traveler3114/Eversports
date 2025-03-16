@@ -1,3 +1,5 @@
+using Microsoft.Maui.ApplicationModel.Communication;
+
 namespace Eversports;
 
 public partial class LoginPage : ContentPage
@@ -8,10 +10,12 @@ public partial class LoginPage : ContentPage
 	}
 	private async void OnLoginButtonClicked(object sender, EventArgs e)
 	{
-		if (RememberMeCheckBox.IsChecked)
-		{
+       // await SecureStorage.Default.SetAsync("UserEmail", email);
+
+        if (RememberMeCheckBox.IsChecked)
+        {
             await SecureStorage.Default.SetAsync("StayLoggedIn", "true");
         }
-		((App)Application.Current!)?.SetToAppShellMain();
+        ((App)Application.Current!)?.SetToAppShellMain();
     }
 }
