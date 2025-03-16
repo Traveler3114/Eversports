@@ -40,6 +40,11 @@
                 Placeholder="Password"
                 IsPassword="True"
                 HorizontalOptions="Fill" />
+        <Entry
+                x:Name="ConfirmPasswordEntry"
+                Placeholder="Confirm password"
+                IsPassword="True"
+                HorizontalOptions="Fill" />
 
         <Button
                 x:Name="RegisterButton"
