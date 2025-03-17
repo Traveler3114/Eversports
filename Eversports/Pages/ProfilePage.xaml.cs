@@ -17,11 +17,12 @@ public partial class ProfilePage : ContentPage
 	public ProfilePage()
 	{
 		InitializeComponent();
-        InitializeAsync();
     }
 
-    private async void InitializeAsync()
+
+    protected override async void OnAppearing()
     {
+        base.OnAppearing();
         await GetUserData();
     }
 
@@ -46,7 +47,6 @@ public partial class ProfilePage : ContentPage
         {
             var response = await client.PostAsync("http://localhost/auth_app/EversportsAPI.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
-            await DisplayAlert("A", "Response content " + responseContent, "OK");
             //konvertiramo PHP json u C# dictionary
             var jsonResponse = JsonSerializer.Deserialize<Response>(responseContent);
 
@@ -54,10 +54,9 @@ public partial class ProfilePage : ContentPage
             if (jsonResponse != null && jsonResponse.status == "success")
             {
                 user = jsonResponse.user;
-                await DisplayAlert("Succes", "User found", "OK");
-                NameEntry.Text = jsonResponse.user.name;
-                SurnameEntry.Text = jsonResponse.user.surname;
-                EmailEntry.Text = jsonResponse.user.email;
+                NameEntry.Text = user.name;
+                SurnameEntry.Text = user.surname;
+                EmailEntry.Text = user.email;
 
 
             }
@@ -81,47 +80,63 @@ public partial class ProfilePage : ContentPage
     //
     //
     //napravi mjenjanje korisnicik podataka!!!!
-    //public async Task SetUserData()
-    //{
-    //    var client = new HttpClient();
+    public async Task SetUserData()
+    {
+        var client = new HttpClient();
 
-    //    UserInfo user = new UserInfo()
-    //    {
-    //        name = NameEntry.Text,
-    //        surname = SurnameEntry.Text,
-    //        email = EmailEntry.Text,
-    //        password= PasswordEntry.Text,
-    //    };
+        UserInfo changedUser = new UserInfo()
+        {
+            id=user!.id,
+            name = NameEntry.Text,
+            surname = SurnameEntry.Text,
+            email = EmailEntry.Text,
+            password = PasswordEntry.Text,
+        };
+
+        var Data = new
+        {
+            action = "setData",
+            user = changedUser,
+        };
+
+        var jsonContent = JsonSerializer.Serialize(Data);
+        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+        try
+        {
+            var response = await client.PostAsync("http://localhost/auth_app/EversportsAPI.php", content);
+            var responseContent = await response.Content.ReadAsStringAsync();
 
 
-    //    var jsonContent= JsonSerializer.Serialize(user);
-    //    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-    //    try
-    //    {
-    //        var response = await client.PostAsync("http://localhost/auth_app/EversportsAPI.php", content);
-    //        var responseContent = await response.Content.ReadAsStringAsync();
-
-            
-    //        //konvertiramo PHP json u C# dictionary
-    //        var jsonResponse = JsonSerializer.Deserialize<Response>(responseContent);
-
-    //        if (jsonResponse != null && jsonResponse.Status == "success")
-    //        {
-    //            await DisplayAlert("Succes", "User data save succesfully", "OK");
-    //        }
-    //        else
-    //        {
-    //            await DisplayAlert("Error", "User not found or error in the response", "OK");
-    //        }
-    //    }
-    //    catch (Exception ex) 
-    //    {
-    //        await DisplayAlert("Error", "Something went wrong: " + ex.Message, "OK");
-    //    }
-    //}
+            //konvertiramo PHP json u C# dictionary
+            var jsonResponse = JsonSerializer.Deserialize<Dictionary<string,string>>(responseContent);
+            if (jsonResponse != null && jsonResponse.ContainsKey("status"))
+            {
+                if (jsonResponse["status"] == "success")
+                {
+                    await DisplayAlert("Success", jsonResponse["message"], "OK");
+                    user = changedUser;
+                }
+                else
+                {
+                    await DisplayAlert("Error", jsonResponse["message"], "OK");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", "Something went wrong: " + ex.Message, "OK");
+        }
+    }
 
     public async void OnSaveButtonClicked(object sender, EventArgs e)
     {
-        //await SetUserData();
+        if (string.IsNullOrEmpty(NameEntry.Text)|| string.IsNullOrEmpty(SurnameEntry.Text)|| string.IsNullOrEmpty(EmailEntry.Text)|| string.IsNullOrEmpty(PasswordEntry.Text))
+        {
+            await DisplayAlert("Error", "Some required fields are empty ", "OK");
+        }
+        else
+        {
+            await SetUserData();
+        }   
     }
 }
