@@ -25,17 +25,6 @@
                 Keyboard="Email"
                 HorizontalOptions="Fill" />
         <Entry
-                x:Name="AddressEntry"
-                Placeholder="Address"
-                Keyboard="Default"
-                HorizontalOptions="Fill" />
-        <Entry
-                x:Name="PhoneNumberEntry"
-                Placeholder="Phone number"
-                Keyboard="Default"
-                HorizontalOptions="Fill" />
-
-        <Entry
                 x:Name="PasswordEntry"
                 Placeholder="Password"
                 IsPassword="True"

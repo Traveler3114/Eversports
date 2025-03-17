@@ -1,10 +1,12 @@
 using Eversports.Model;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Eversports;
-
+//BITNO!!!!!!
+//IMENA VARIJABLE U KLASAMA U C# MORAJU BITI JEDNAKA IMENIMA U BAZI PODATAKA VELIKA I MALA SLOVA SU BITNA
 public partial class RegistrationPage : ContentPage
 {
     public RegistrationPage()
@@ -15,64 +17,84 @@ public partial class RegistrationPage : ContentPage
     // Make the event handler async
     private async void OnRegisterButtonClicked(object sender, EventArgs e)
     {
-        UserInfo user = new UserInfo()
+        if(string.IsNullOrEmpty(NameEntry.Text) || string.IsNullOrEmpty(SurnameEntry.Text) || string.IsNullOrEmpty(EmailEntry.Text) || string.IsNullOrEmpty(PasswordEntry.Text) || string.IsNullOrEmpty(ConfirmPasswordEntry.Text))
         {
-            Name = NameEntry.Text,
-            Surname = SurnameEntry.Text,
-            Password = PasswordEntry.Text,
-            Email = EmailEntry.Text,
-            Address = AddressEntry.Text,
-            Phone = PhoneNumberEntry.Text
-        };
-
-        // Call RegisterUserAsync asynchronously
-        if(PasswordEntry.Text==ConfirmPasswordEntry.Text)
-        {
-            await RegisterUserAsync(user);
+            await DisplayAlert("Registration failed", "You didn't enter all the necessary data.", "OK");
         }
         else
         {
-            await DisplayAlert("Registration failed", "Passwords dont match", "Not ok");
+            if (PasswordEntry.Text == ConfirmPasswordEntry.Text)
+            {
+                await RegisterUserAsync();
+            }
+            else
+            {
+                await DisplayAlert("Registration failed", "Passwords dont match", "OK");
+            }
         }
     }
 
-    public async Task RegisterUserAsync(UserInfo user)
+    //async se koristi kako bi funkcija bila asynchronous sto znaci da se funkcija izvrsava bez blokiranja ostatka aplikacije
+    //await se koristi kako bi se pricekalo izvrsenje funkcije bez blokiranja ostatka aplikacije
+    //Task represntira operaciju koja je pokrenta u pozadini te ce jednom zavrsiti 
+    public async Task RegisterUserAsync()
     {
         // Initialize HttpClient
         var client = new HttpClient();
 
-        // Prepare form data
-        var postData = new Dictionary<string, string>
+        UserInfo user = new UserInfo()
         {
-            { "name", user.Name },
-            { "surname", user.Surname },
-            { "email", user.Email },
-            { "password", user.Password },
+            name = NameEntry.Text,
+            surname = SurnameEntry.Text,
+            password = PasswordEntry.Text,
+            email = EmailEntry.Text,
         };
 
-        // Send the POST request to PHP backend
-        var content = new FormUrlEncodedContent(postData);
+        var registrationData = new
+        {
+            action = "register", // This tells the backend it's a registration request
+            user = user // Include the UserInfo object here
+        };
 
+        // konvertiramo objekt user u json
+        var jsonContent = JsonSerializer.Serialize(registrationData);
+        //Ovako izgleda json file
+        //{
+        //    "name": "John",
+        //    "surname": "Doe",
+        //    "email": "john@example.com",
+        //    "password": "12345"
+        //}
+
+
+
+        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
         try
         {
-            // Replace with your actual PHP script URL
+            // Send JSON to PHP backend
             var response = await client.PostAsync("http://localhost/auth_app/EversportsAPI.php", content);
+            //citamo json response kao string te ga kasnije pretvaramo u C# dictionary
+            var responseContent = await response.Content.ReadAsStringAsync();
+            ////konvertiramo PHP json u C# dictionary
+            var jsonResponse = JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
 
-            if (response.IsSuccessStatusCode)
+
+            //// Check if registration was successful
+            if (jsonResponse != null && jsonResponse.ContainsKey("status"))
             {
-                // Read the response (success or failure message)
-                var responseContent = await response.Content.ReadAsStringAsync();
-                await DisplayAlert("Registration succesful", responseContent, "Ok");
-            }
-            else
-            {
-                // If the response is not successful, show an error
-                await DisplayAlert("Registration unsuccesful","Registration failed: " + response.StatusCode, "Not ok");
+                if (jsonResponse["status"] == "success")
+                {
+                    await DisplayAlert("Success", jsonResponse["message"], "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Error", jsonResponse["message"], "OK");
+                }
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Registration not succesful", "Error: " + ex.Message, "Not ok");
+            await DisplayAlert("Error", "Something went wrong: " + ex.Message, "OK");
         }
     }
 }

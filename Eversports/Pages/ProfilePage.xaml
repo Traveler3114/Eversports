@@ -29,11 +29,6 @@
                 Keyboard="Email"
                 HorizontalOptions="Fill" />
         <Entry
-                x:Name="AddressEntry"
-                Placeholder="Address"
-                Keyboard="Default"
-                HorizontalOptions="Fill" />
-        <Entry
                 x:Name="PhoneNumberEntry"
                 Placeholder="Phone number"
                 Keyboard="Default"
@@ -48,6 +43,7 @@
         <Button
                 x:Name="SaveButton"
                 Text="Save"
+                Clicked="OnSaveButtonClicked"
                 HorizontalOptions="Fill" />
     </VerticalStackLayout>
 </ContentPage>
