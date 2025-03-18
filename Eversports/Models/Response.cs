@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eversports.Model
+namespace Eversports.Models
 {
-    class ReceivingData
+    class Response
     {
         public string status { get; set; }
         public UserInfo user { get; set; }

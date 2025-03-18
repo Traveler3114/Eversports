@@ -1,4 +1,5 @@
-using Eversports.Model;
+using Eversports.Models;
+using Eversports.Services;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -9,9 +10,11 @@ namespace Eversports;
 //IMENA VARIJABLE U KLASAMA U C# MORAJU BITI JEDNAKA IMENIMA U BAZI PODATAKA VELIKA I MALA SLOVA SU BITNA
 public partial class RegistrationPage : ContentPage
 {
+    private readonly UserService _userService;
     public RegistrationPage()
     {
         InitializeComponent();
+        _userService = new UserService();
     }
 
     // Make the event handler async
@@ -39,8 +42,6 @@ public partial class RegistrationPage : ContentPage
     //Task represntira operaciju koja je pokrenta u pozadini te ce jednom zavrsiti 
     public async Task RegisterUser()
     {
-        // Initialize HttpClient
-        var client = new HttpClient();
 
         UserInfo user = new UserInfo()
         {
@@ -50,53 +51,20 @@ public partial class RegistrationPage : ContentPage
             email = EmailEntry.Text,
         };
 
+        var response=await _userService.RegisterUser(user);
 
-        SendingData sendingData = new SendingData()
+
+        //// Check if registration was successful
+        if (response != null && response.ContainsKey("status"))
         {
-            action = "register",
-            user = user,
-        };
-
-
-        // konvertiramo objekt user u json
-        var jsonContent = JsonSerializer.Serialize(sendingData);
-        //Ovako izgleda json file
-        //{
-        //    "name": "John",
-        //    "surname": "Doe",
-        //    "email": "john@example.com",
-        //    "password": "12345"
-        //}
-
-
-
-        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-        try
-        {
-            // Send JSON to PHP backend
-            var response = await client.PostAsync("http://localhost/auth_app/EversportsAPI.php", content);
-            //citamo json response kao string te ga kasnije pretvaramo u C# dictionary
-            var responseContent = await response.Content.ReadAsStringAsync();
-            ////konvertiramo PHP json u C# dictionary
-            var jsonResponse = JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
-
-
-            //// Check if registration was successful
-            if (jsonResponse != null && jsonResponse.ContainsKey("status"))
+            if (response["status"] == "success")
             {
-                if (jsonResponse["status"] == "success")
-                {
-                    await DisplayAlert("Success", jsonResponse["message"], "OK");
-                }
-                else
-                {
-                    await DisplayAlert("Error", jsonResponse["message"], "OK");
-                }
+                await DisplayAlert("Success", response["message"], "OK");
             }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error", "Something went wrong: " + ex.Message, "OK");
+            else
+            {
+                await DisplayAlert("Error", response["message"], "OK");
+            }
         }
     }
 }

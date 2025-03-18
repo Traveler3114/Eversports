@@ -1,18 +1,22 @@
-using Eversports.Model;
+using Eversports.Models;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Maui.ApplicationModel.Communication;
+using Eversports.Services;
 
 namespace Eversports;
 
 public partial class LoginPage : ContentPage
 {
-	public LoginPage()
+
+    private readonly UserService _userService;
+    public LoginPage()
 	{
 		InitializeComponent();
-	}
+        _userService = new UserService();
+    }
 	private async void OnLoginButtonClicked(object sender, EventArgs e)
 	{
         if (string.IsNullOrEmpty(EmailEntry.Text) || string.IsNullOrEmpty(PasswordEntry.Text))
@@ -32,7 +36,6 @@ public partial class LoginPage : ContentPage
 
     public async Task LoginUser()
     {
-        var client = new HttpClient();
 
         UserInfo user = new UserInfo()
         {
@@ -40,51 +43,25 @@ public partial class LoginPage : ContentPage
             email = EmailEntry.Text,
         };
 
-        SendingData sendingData = new SendingData()
+        var response = await _userService.LoginUser(user);
+
+        if (response != null && response.ContainsKey("status"))
         {
-            action = "login",
-            user = user,
-        };
-
-
-        var jsonContent = JsonSerializer.Serialize(sendingData);
-        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-        try
-        {
-            // Send JSON to PHP backend
-            var response = await client.PostAsync("http://localhost/auth_app/EversportsAPI.php", content);
-            //citamo json response kao string te ga kasnije pretvaramo u C# dictionary
-            var responseContent = await response.Content.ReadAsStringAsync();
-            //konvertiramo PHP json u C# dictionary
-            var jsonResponse = JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
-
-            
-            // Check if registration was successful
-            if (jsonResponse != null && jsonResponse.ContainsKey("status"))
+            if (response["status"] == "success")
             {
-                if (jsonResponse["status"] == "success")
+                await DisplayAlert("Success", response["message"], "OK");
+                await SecureStorage.Default.SetAsync("UserEmail", EmailEntry.Text);
+                if (RememberMeCheckBox.IsChecked)
                 {
-                    await DisplayAlert("Success", jsonResponse["message"], "OK");
-
-                    await SecureStorage.Default.SetAsync("UserEmail", EmailEntry.Text);
-
-                    if (RememberMeCheckBox.IsChecked)
-                    {
-                        await SecureStorage.Default.SetAsync("StayLoggedIn", "true");
-                    }
-                    ((App)Application.Current!)?.SetToAppShellMain();
+                    await SecureStorage.Default.SetAsync("StayLoggedIn", "true");
                 }
-                else
-                {
-                    await DisplayAlert("Error", jsonResponse["message"], "OK");
-                }
+                ((App?)Application.Current!).SetToAppShellMain();
+            }
+            else
+            {
+                await DisplayAlert("Error", response["message"], "OK");
             }
         }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error", "Something went wrong: " + ex.Message, "OK");
-        }
-    }
 
+    }
 }
