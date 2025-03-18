@@ -25,12 +25,12 @@ public partial class LoginPage : ContentPage
             {
                 ((App)Application.Current!)?.SetToAppShellMain();
             }
-            else await LoginUserAsync();
+            else await LoginUser();
         }  
     }
 
 
-    public async Task LoginUserAsync()
+    public async Task LoginUser()
     {
         var client = new HttpClient();
 
@@ -40,13 +40,14 @@ public partial class LoginPage : ContentPage
             email = EmailEntry.Text,
         };
 
-        var loginData = new
+        SendingData sendingData = new SendingData()
         {
             action = "login",
-            user = user
+            user = user,
         };
 
-        var jsonContent = JsonSerializer.Serialize(loginData);
+
+        var jsonContent = JsonSerializer.Serialize(sendingData);
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
         try

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eversports.Model
 {
-    class Response
+    class ReceivingData
     {
         public string status { get; set; }
         public UserInfo user { get; set; }

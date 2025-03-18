@@ -35,20 +35,21 @@ public partial class ProfilePage : ContentPage
         };
 
 
-        var Data = new
+
+        SendingData sendingData = new SendingData()
         {
             action = "getData",
-            user = user
+            user = user,
         };
 
-        var jsonContent = JsonSerializer.Serialize(Data);
+        var jsonContent = JsonSerializer.Serialize(sendingData);
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
         try
         {
             var response = await client.PostAsync("http://localhost/auth_app/EversportsAPI.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             //konvertiramo PHP json u C# dictionary
-            var jsonResponse = JsonSerializer.Deserialize<Response>(responseContent);
+            var jsonResponse = JsonSerializer.Deserialize<ReceivingData>(responseContent);
 
 
             if (jsonResponse != null && jsonResponse.status == "success")
@@ -93,13 +94,14 @@ public partial class ProfilePage : ContentPage
             password = PasswordEntry.Text,
         };
 
-        var Data = new
+
+        SendingData sendingData = new SendingData()
         {
             action = "setData",
-            user = changedUser,
+            user = user,
         };
 
-        var jsonContent = JsonSerializer.Serialize(Data);
+        var jsonContent = JsonSerializer.Serialize(sendingData);
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
         try
         {

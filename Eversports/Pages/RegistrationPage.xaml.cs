@@ -25,7 +25,7 @@ public partial class RegistrationPage : ContentPage
         {
             if (PasswordEntry.Text == ConfirmPasswordEntry.Text)
             {
-                await RegisterUserAsync();
+                await RegisterUser();
             }
             else
             {
@@ -37,7 +37,7 @@ public partial class RegistrationPage : ContentPage
     //async se koristi kako bi funkcija bila asynchronous sto znaci da se funkcija izvrsava bez blokiranja ostatka aplikacije
     //await se koristi kako bi se pricekalo izvrsenje funkcije bez blokiranja ostatka aplikacije
     //Task represntira operaciju koja je pokrenta u pozadini te ce jednom zavrsiti 
-    public async Task RegisterUserAsync()
+    public async Task RegisterUser()
     {
         // Initialize HttpClient
         var client = new HttpClient();
@@ -50,14 +50,16 @@ public partial class RegistrationPage : ContentPage
             email = EmailEntry.Text,
         };
 
-        var registrationData = new
+
+        SendingData sendingData = new SendingData()
         {
-            action = "register", // This tells the backend it's a registration request
-            user = user // Include the UserInfo object here
+            action = "register",
+            user = user,
         };
 
+
         // konvertiramo objekt user u json
-        var jsonContent = JsonSerializer.Serialize(registrationData);
+        var jsonContent = JsonSerializer.Serialize(sendingData);
         //Ovako izgleda json file
         //{
         //    "name": "John",
