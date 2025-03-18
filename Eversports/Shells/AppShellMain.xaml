@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:Eversports"
+       xmlns:local="clr-namespace:Eversports.Pages"
        x:Class="Eversports.Shells.AppShellMain"
-       FlyoutBehavior="Flyout">
+       FlyoutBehavior="Flyout"
+       Shell.NavBarIsVisible="False">
     <FlyoutItem Title="Sports">
         <ShellContent 
-            ContentTemplate="{DataTemplate local:ProfilePage}" />
+            ContentTemplate="{DataTemplate local:SportsPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Looking for players">
-        <ShellContent 
-            ContentTemplate="{DataTemplate local:ProfilePage}" />
+        <!--<ShellContent 
+            ContentTemplate="{DataTemplate local:ProfilePage}" />-->
     </FlyoutItem>
     <FlyoutItem Title="Profile">
         <ShellContent 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Eversports.Models;
 using Eversports.Services;
 
-namespace Eversports;
+namespace Eversports.Pages;
 
 
 
