@@ -9,9 +9,9 @@
         <ShellContent 
             ContentTemplate="{DataTemplate local:SportsPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Looking for players">
-        <!--<ShellContent 
-            ContentTemplate="{DataTemplate local:ProfilePage}" />-->
+    <FlyoutItem Title="Looking to play">
+        <ShellContent 
+            ContentTemplate="{DataTemplate local:LookingToPlayPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Profile">
         <ShellContent 

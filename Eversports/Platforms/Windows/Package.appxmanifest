@@ -8,7 +8,7 @@
 
   <Identity Name="maui-package-name-placeholder" Publisher="CN=User Name" Version="0.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="6C73A0B4-25EB-431A-A6E2-5985D6F14BEB" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="01623BAB-CA5E-4BB9-9348-710CA05B3989" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>$placeholder$</DisplayName>
@@ -17,8 +17,8 @@
   </Properties>
 
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionEversportsed="10.0.19041.0" />
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionEversportsed="10.0.19041.0" />
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
   </Dependencies>
 
   <Resources>

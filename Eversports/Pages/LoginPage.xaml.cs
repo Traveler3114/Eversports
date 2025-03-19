@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.Maui.ApplicationModel.Communication;
 using Eversports.Services;
 
-namespace Eversports;
+namespace Eversports.Pages;
 
+
+//! se koristi kako bi se supresirao warning da je moguci operator null, ! kaze da definitivno nije
+//? se koristi kao if i provjerava da li operator null tocnije da li je operator validan;
 public partial class LoginPage : ContentPage
 {
 
@@ -25,11 +28,14 @@ public partial class LoginPage : ContentPage
         }
         else
         {
+#if DEBUG
             if(EmailEntry.Text=="admin" && PasswordEntry.Text == "admin")
             {
                 ((App)Application.Current!)?.SetToAppShellMain();
+                return;
             }
-            else await LoginUser();
+#endif
+            await LoginUser();
         }  
     }
 

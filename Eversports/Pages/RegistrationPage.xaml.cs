@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Eversports;
+namespace Eversports.Pages;
 //BITNO!!!!!!
 //IMENA VARIJABLE U KLASAMA U C# MORAJU BITI JEDNAKA IMENIMA U BAZI PODATAKA VELIKA I MALA SLOVA SU BITNA
 public partial class RegistrationPage : ContentPage
