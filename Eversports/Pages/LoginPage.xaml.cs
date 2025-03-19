@@ -29,7 +29,7 @@ public partial class LoginPage : ContentPage
         else
         {
 #if DEBUG
-            if(EmailEntry.Text=="admin" && PasswordEntry.Text == "admin")
+            if (EmailEntry.Text == "admin" && PasswordEntry.Text == "admin")
             {
                 ((App)Application.Current!)?.SetToAppShellMain();
                 return;
@@ -48,6 +48,7 @@ public partial class LoginPage : ContentPage
             password = PasswordEntry.Text,
             email = EmailEntry.Text,
         };
+
 
         var response = await _userService.LoginUser(user);
 
