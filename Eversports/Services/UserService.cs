@@ -11,9 +11,11 @@ namespace Eversports.Services
     class UserService
     {
         private readonly HttpClient _client;
+        private string url;
         public UserService()
         {
             _client = new HttpClient();
+            url= "http://localhost/Eversports/EversportsAPI.php"
         }
 
         public async Task<Dictionary<string, string>?> RegisterUser(UserInfo user)
@@ -51,7 +53,7 @@ namespace Eversports.Services
             //}
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("http://localhost/auth_app/EversportsAPI.php", content);
+            var response = await _client.PostAsync(url, content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Response>(responseContent);
         }
@@ -67,7 +69,7 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("http://localhost/auth_app/EversportsAPI.php", content);
+            var response = await _client.PostAsync(url, content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
