@@ -51,20 +51,25 @@ public partial class RegistrationPage : ContentPage
             email = EmailEntry.Text,
         };
 
-        var response=await _userService.RegisterUser(user);
-
-
-        //// Check if registration was successful
-        if (response != null && response.ContainsKey("status"))
+        try
         {
-            if (response["status"] == "success")
+            var response = await _userService.RegisterUser(user);
+            //// Check if registration was successful
+            if (response != null && response.ContainsKey("status"))
             {
-                await DisplayAlert("Success", response["message"], "OK");
+                if (response["status"] == "success")
+                {
+                    await DisplayAlert("Success", response["message"], "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Error", response["message"], "OK");
+                }
             }
-            else
-            {
-                await DisplayAlert("Error", response["message"], "OK");
-            }
+        }
+        catch (Exception ex) 
+        {
+            await DisplayAlert("Error", "Connection failed", "OK");
         }
     }
 }

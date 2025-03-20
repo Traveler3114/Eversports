@@ -11,7 +11,10 @@ namespace Eversports
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            
+#if DEBUG
+            return new Window(new AppShellMain());
+#endif
+
             // Replace this with your actual login check
             var isUserLoggedIn = SecureStorage.Default.GetAsync("StayLoggedIn").Result;
 

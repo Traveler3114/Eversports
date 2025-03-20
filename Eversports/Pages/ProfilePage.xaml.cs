@@ -36,18 +36,25 @@ public partial class ProfilePage : ContentPage
             email = await SecureStorage.Default.GetAsync("UserEmail") ?? string.Empty
         };
 
-        var response = await _userService.GetUserData(user);
+        try
+        {
+            var response = await _userService.GetUserData(user);
 
-        if (response != null && response.status=="success")
-        {
-            user = response.user;
-            NameEntry.Text = user.name;
-            SurnameEntry.Text = user.surname;
-            EmailEntry.Text = user.email;
+            if (response != null && response.status == "success")
+            {
+                user = response.user;
+                NameEntry.Text = user.name;
+                SurnameEntry.Text = user.surname;
+                EmailEntry.Text = user.email;
+            }
+            else
+            {
+                await DisplayAlert("Error", "User not found or error in the response", "OK");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            await DisplayAlert("Error", "User not found or error in the response", "OK");
+            await DisplayAlert("Error", "Connection failed", "OK");
         }
     }
 
@@ -61,21 +68,27 @@ public partial class ProfilePage : ContentPage
             email = EmailEntry.Text,
             password = PasswordEntry.Text,
         };
-
-
-        var response = await _userService.SetUserData(changedUser);
-        if (response != null && response.ContainsKey("status"))
+        try
         {
-            if (response["status"] == "success")
+            var response = await _userService.SetUserData(changedUser);
+            if (response != null && response.ContainsKey("status"))
             {
-                await DisplayAlert("Success", response["message"], "OK");
-                user = changedUser;
-            }
-            else
-            {
-                await DisplayAlert("Error", response["message"], "OK");
+                if (response["status"] == "success")
+                {
+                    await DisplayAlert("Success", response["message"], "OK");
+                    user = changedUser;
+                }
+                else
+                {
+                    await DisplayAlert("Error", response["message"], "OK");
+                }
             }
         }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", "Connection failed", "OK");
+        }
+
     }
 
     public async void OnSaveButtonClicked(object sender, EventArgs e)
