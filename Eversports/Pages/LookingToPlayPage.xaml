@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Eversports.Pages.LookingToPlayPage"
+             xmlns:local="clr-namespace:Eversports.Views"
+              x:Class="Eversports.Pages.LookingToPlayPage"
              Title="Looking to play">
     <Grid Padding="30" RowSpacing="20">
 
@@ -42,8 +43,7 @@
             x:Name="SportPicker"
             SelectedIndexChanged="OnSportSelected"
             HorizontalOptions="Fill"/>
-            <!--<CollectionView ItemsSource="{Binding Sports}">
-            </CollectionView>-->
+            <HorizontalStackLayout x:Name="ItemStackLayout"/>
         </VerticalStackLayout>
         <Entry
             Grid.Row="3"
