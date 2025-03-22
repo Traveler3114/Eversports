@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Eversports.Views.ItemView">
     <HorizontalStackLayout>
-        <Label x:Name="ItemLabel" Text="{Binding Name}" BackgroundColor="Red"/>
+        <Label x:Name="ItemLabel" Text="ItemName" BackgroundColor="Red"/>
         <Button x:Name="RemoveItem" Text="x" BackgroundColor="Blue"/>
     </HorizontalStackLayout>
 </ContentView>
