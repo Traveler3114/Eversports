@@ -12,45 +12,46 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
 
-
-        <DatePicker
-            Grid.Row="0"
+        <VerticalStackLayout Grid.Row="0">
+            <Label Text="Time"/>
+            <DatePicker
             x:Name="DatePicker"
             HorizontalOptions="Fill"/>
-        <TimePicker
-            Grid.Row="1"
+            <TimePicker
             x:Name="TimePicker"
             HorizontalOptions="Fill"/>
-        <Picker
-            Grid.Row="2"
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1">
+            <Label Text="Location"/>
+            <Picker
             x:Name="CountryPicker"
             HorizontalOptions="Fill"/>
-        <Picker
-            Grid.Row="3"
+            <Picker
             x:Name="CityPicker"           
             HorizontalOptions="Fill"/>
-        <Entry
-            Grid.Row="4"
+            <Entry
             x:Name="DetailedLocationEntry"
             Placeholder="Detailed location (optional)"
             HorizontalOptions="Fill"/>
-        <Picker
-            Grid.Row="5"
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2">
+            <Picker
             x:Name="SportPicker"
+            SelectedIndexChanged="OnSportSelected"
             HorizontalOptions="Fill"/>
+            <!--<CollectionView ItemsSource="{Binding Sports}">
+            </CollectionView>-->
+        </VerticalStackLayout>
         <Entry
-            Grid.Row="6"
+            Grid.Row="3"
             x:Name="DescriptionEntry"
             Placeholder="Description"
             HorizontalOptions="Fill"/>
         <Button 
-            Grid.Row="7"
+            Grid.Row="4"
             x:Name="CreateButton"
             Text="Create"
             HorizontalOptions="Fill"/>
