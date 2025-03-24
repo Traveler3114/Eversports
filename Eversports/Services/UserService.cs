@@ -15,7 +15,7 @@ namespace Eversports.Services
         public UserService()
         {
             _client = new HttpClient();
-            url = "http://localhost/Eversports/EversportsAPI.php";
+            url = "http://localhost/EversportsAPI/";
         }
 
         public async Task<Dictionary<string, string>?> RegisterUser(UserInfo user)
