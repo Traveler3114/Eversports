@@ -8,7 +8,7 @@ namespace Eversports.Models
 {
     class Response
     {
-        public string status { get; set; }
-        public UserInfo user { get; set; }
+        public string? status { get; set; }
+        public UserInfo? user { get; set; }
     }
 }

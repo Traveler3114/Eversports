@@ -70,7 +70,7 @@ public partial class LoginPage : ContentPage
                 }
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             await DisplayAlert("Error", "Connection failed", "OK");
         }
