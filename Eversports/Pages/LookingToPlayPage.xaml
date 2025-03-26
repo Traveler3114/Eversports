@@ -78,6 +78,7 @@
             Grid.Row="4"
             x:Name="CreateButton"
             Text="Create"
+            Clicked="OnCreateButtonClicked"
             HorizontalOptions="Fill"/>
     </Grid>
 </ContentPage>

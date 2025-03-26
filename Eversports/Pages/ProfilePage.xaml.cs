@@ -99,6 +99,7 @@ public partial class ProfilePage : ContentPage
         }
         else
         {
+            await SecureStorage.Default.SetAsync("UserEmail", EmailEntry.Text);
             await SetUserData();
         }   
     }

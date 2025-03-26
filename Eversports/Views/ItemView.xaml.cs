@@ -5,15 +5,17 @@ namespace Eversports.Views;
 public partial class ItemView : ContentView
 {
 
-
-    public ItemView(string text)
+    private Action _removeItemAction;
+    public ItemView(string text, Action removeItemAction)
     {
         InitializeComponent();
         ItemLabel.Text = text;
+        _removeItemAction = removeItemAction;
     }
 
     private void OnRemoveButtonClicked(object sender, EventArgs e)
     {
+        _removeItemAction.Invoke();
         var parent = this.Parent as HorizontalStackLayout;
         if (parent != null)
         {
