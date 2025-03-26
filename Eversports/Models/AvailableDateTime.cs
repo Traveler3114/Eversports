@@ -17,5 +17,10 @@ namespace Eversports.Models
             var other = obj as AvailableDateTime;
             return Date == other?.Date && FromTime == other?.FromTime && ToTime == other?.ToTime;
         }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Date, FromTime, ToTime);
+        }
     }
 }

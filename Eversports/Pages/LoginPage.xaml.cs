@@ -74,6 +74,5 @@ public partial class LoginPage : ContentPage
         {
             await DisplayAlert("Error", "Connection failed", "OK");
         }
-
     }
 }
