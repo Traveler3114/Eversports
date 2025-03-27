@@ -1,12 +1,13 @@
 ﻿using Eversports.Models;
 using Eversports.Services;
 using Eversports.Views;
+using System.Xml.Linq;
 
 namespace Eversports.Pages;
 
 public partial class FindToPlayPage : ContentPage
 {
-
+    private readonly LookingToPlayService _lookingToPlayService;
     private readonly Dictionary<string, List<string>> _countryCities = new()
     {
     { "Afghanistan", new List<string> { "Kabul", "Kandahar", "Herat", "Mazar-i-Sharif", "Jalalabad" } },
@@ -68,7 +69,7 @@ public partial class FindToPlayPage : ContentPage
     public FindToPlayPage()
 	{
 		InitializeComponent();
-
+        _lookingToPlayService = new LookingToPlayService();
 
 
 
@@ -165,6 +166,18 @@ public partial class FindToPlayPage : ContentPage
 
     public async void OnSearchButtonClicked(object sender, EventArgs e)
     {
+        try
+        {
+            // Get the XML response from the PHP script
+            XDocument doc = await _lookingToPlayService.GetAllLookingToPlay();
 
+            // For debugging, show the XML string in an alert
+            await DisplayAlert("XML Response", doc.ToString(), "OK");
+
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", ex.Message, "OK");
+        }
     }
 }

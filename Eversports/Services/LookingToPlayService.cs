@@ -5,6 +5,8 @@ using System.Text;
 using Eversports.Models;
 using System.Threading.Tasks;
 using System.Text.Json;
+using System.Xml.Linq;
+using System.Net.Http;
 
 namespace Eversports.Services
 {
@@ -33,6 +35,17 @@ namespace Eversports.Services
             var response = await _client.PostAsync("http://localhost/EversportsAPI/", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
+        }
+
+        public async Task<XDocument> GetAllLookingToPlay()
+        {
+            var response = await _client.GetAsync(url);
+
+
+            string xmlContent = await response.Content.ReadAsStringAsync();
+
+            // Parse the XML content into an XDocument
+            return XDocument.Parse(xmlContent);
         }
     }
 }
