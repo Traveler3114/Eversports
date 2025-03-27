@@ -68,6 +68,10 @@ public partial class FindToPlayPage : ContentPage
     public FindToPlayPage()
 	{
 		InitializeComponent();
+
+
+
+
         CountryPicker.ItemsSource = _countryCities.Keys.ToList();
 
         SportPicker.ItemsSource = new List<string>
@@ -161,7 +165,6 @@ public partial class FindToPlayPage : ContentPage
 
     public async void OnSearchButtonClicked(object sender, EventArgs e)
     {
-
 
     }
 }
