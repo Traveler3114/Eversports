@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Eversports.Views"
-             x:Class="Eversports.Pages.LookingToPlayPage"
-             Title="Looking to play">
+             x:Class="Eversports.Pages.FindToPlayPage"
+             Title="FindToPlayPage">
     <Grid Padding="30" RowSpacing="20">
 
         <!-- Definiranje koliko redova Grid ima i njihova svojstvva -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -41,7 +39,7 @@
                 Clicked="OnAddDateTimeClicked"
                 HorizontalOptions="Fill"/>
             <HorizontalStackLayout x:Name="TimeStackLayout"/>
-            
+
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="1" >
@@ -55,11 +53,6 @@
                 x:Name="CityPicker"           
                 HorizontalOptions="Fill"
                 Margin="0,10"/>
-            <Entry
-                x:Name="DetailedLocationEntry"
-                Placeholder="Detailed location (optional)"
-                HorizontalOptions="Fill"
-                Margin="0,10"/>
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="2">
             <Label Text="Sport"/>
@@ -69,17 +62,11 @@
                 HorizontalOptions="Fill"/>
             <HorizontalStackLayout x:Name="SportStackLayout"/>
         </VerticalStackLayout>
-        <Entry
-            Grid.Row="3"
-            x:Name="DescriptionEntry"
-            Placeholder="Description"
-            HorizontalOptions="Fill"/>
-
         <Button 
-            Grid.Row="4"
-            x:Name="CreateButton"
-            Text="Create"
-            Clicked="OnCreateButtonClicked"
+            Grid.Row="3"
+            x:Name="SearchButton"
+            Text="Search"
+            Clicked="OnSearchButtonClicked"
             HorizontalOptions="Fill"/>
     </Grid>
 </ContentPage>

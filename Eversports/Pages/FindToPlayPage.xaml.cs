@@ -1,27 +1,11 @@
 ﻿using Eversports.Models;
-using Eversports.Views;
 using Eversports.Services;
-using CsvHelper;
-using System.Diagnostics.Metrics;
-using System.Globalization;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+using Eversports.Views;
 
 namespace Eversports.Pages;
 
-public partial class LookingToPlayPage : ContentPage
+public partial class FindToPlayPage : ContentPage
 {
-    //stranica gdje korisnici mogu postavljati trazenja igraca
-    //lista na kojoj pise koji korisnik trazi igraca, koji sport i koja lokacija,
-    //takoder taj korisnik moze postaviti odredenjeno vrijeme, na primjer subota ili nedelja izmedju 10-12
-
-    private readonly LookingToPlayService _lookingToPlayService;
 
     private readonly Dictionary<string, List<string>> _countryCities = new()
     {
@@ -79,11 +63,11 @@ public partial class LookingToPlayPage : ContentPage
     };
 
     List<string> _choosenSports { get; set; } = new List<string>();
-    List<AvailableDateTime> _availableDateTimes { get; set; }=new List<AvailableDateTime>();
-    public LookingToPlayPage()
-    {
-        InitializeComponent();
-        _lookingToPlayService = new LookingToPlayService();
+
+    List<AvailableDateTime> _availableDateTimes { get; set; } = new List<AvailableDateTime>();
+    public FindToPlayPage()
+	{
+		InitializeComponent();
         CountryPicker.ItemsSource = _countryCities.Keys.ToList();
 
         SportPicker.ItemsSource = new List<string>
@@ -110,7 +94,6 @@ public partial class LookingToPlayPage : ContentPage
             "Skateboarding",
         };
     }
-
     private void OnCountrySelected(object sender, EventArgs e)
     {
         if (CountryPicker.SelectedItem != null)
@@ -168,7 +151,7 @@ public partial class LookingToPlayPage : ContentPage
         {
             _availableDateTimes.Add(dateTime);
             string dateTimeEntry = $"{dateTime.Date} from {dateTime.FromTime} to {dateTime.ToTime}";
-            TimeStackLayout.Children.Add(new ItemView(dateTimeEntry, ()=>RemoveDateTime(dateTime)));
+            TimeStackLayout.Children.Add(new ItemView(dateTimeEntry, () => RemoveDateTime(dateTime)));
         }
         else
         {
@@ -176,28 +159,9 @@ public partial class LookingToPlayPage : ContentPage
         }
     }
 
-    public async void OnCreateButtonClicked(object sender, EventArgs e)
+    public async void OnSearchButtonClicked(object sender, EventArgs e)
     {
 
 
-        LookingToPlay lookingToPlay = new LookingToPlay()
-        {
-            availableDateTimes = _availableDateTimes,
-            country = CountryPicker.SelectedItem.ToString(),
-            city = CityPicker.SelectedItem.ToString(),
-            detailedLocation = DetailedLocationEntry.Text,
-            choosenSports=_choosenSports,
-            description = DescriptionEntry.Text,
-            user_id = Convert.ToInt32(await SecureStorage.Default.GetAsync("UserID"))
-        };
-
-        try
-        {
-            var response = await _lookingToPlayService.AddLookingToPlay(lookingToPlay);
-        }
-        catch (Exception ex) 
-        {
-            await DisplayAlert("Error", "Error in " + ex.Message, "OK");
-        }
     }
 }
