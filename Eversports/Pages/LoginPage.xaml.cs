@@ -58,7 +58,7 @@ public partial class LoginPage : ContentPage
                 {
                     await DisplayAlert("Success", response["message"], "OK");
                     await SecureStorage.Default.SetAsync("UserEmail", EmailEntry.Text);
-                    Response r = await _userService.GetUserData(new UserInfo() { email=EmailEntry.Text });
+                    Response r = await _userService.GetUserData(new UserInfo() { email=EmailEntry.Text },"getDataByEMAIL");
                     await SecureStorage.Default.SetAsync("UserID", r.user.id.ToString());                 
                     if (RememberMeCheckBox.IsChecked)
                     {

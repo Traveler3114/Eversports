@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Eversports.Pages.FindToPlayPage"
              Title="FindToPlayPage">
-    <Grid Padding="30" RowSpacing="20">
+    <!--<Grid Padding="30" RowSpacing="20">
 
-        <!-- Definiranje koliko redova Grid ima i njihova svojstvva -->
+         --><!--Definiranje koliko redova Grid ima i njihova svojstvva--><!-- 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -68,5 +69,16 @@
             Text="Search"
             Clicked="OnSearchButtonClicked"
             HorizontalOptions="Fill"/>
-    </Grid>
+        
+    </Grid>-->
+    <VerticalStackLayout>
+        <Button 
+            x:Name="SearchButton"
+            Text="Search"
+            Clicked="OnSearchButtonClicked"
+            HorizontalOptions="Fill"/>
+        <StackLayout x:Name="FindToPlayScrollView">
+
+        </StackLayout>
+    </VerticalStackLayout>
 </ContentPage>

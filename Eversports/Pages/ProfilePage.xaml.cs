@@ -38,7 +38,7 @@ public partial class ProfilePage : ContentPage
 
         try
         {
-            var response = await _userService.GetUserData(user);
+            var response = await _userService.GetUserData(user,"getDataByEMAIL");
 
             if (response != null && response.status == "success")
             {

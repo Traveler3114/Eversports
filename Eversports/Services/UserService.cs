@@ -33,11 +33,11 @@ namespace Eversports.Services
             return await SendUserData("setData", user);
         }
 
-        public async Task<Response?> GetUserData(UserInfo user)
+        public async Task<Response?> GetUserData(UserInfo user, string action)
         {
             var sendingData = new
             {
-                action = "getData",
+                action = action,
                 user=user
             };
             // konvertiramo objekt user u json
