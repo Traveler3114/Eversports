@@ -3,82 +3,85 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Eversports.Pages.FindToPlayPage"
              Title="FindToPlayPage">
-    <!--<Grid Padding="30" RowSpacing="20">
+    <!--<VerticalStackLayout>
+        <Grid Padding="30" RowSpacing="20">
 
-         --><!--Definiranje koliko redova Grid ima i njihova svojstvva--><!-- 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+            --><!--Definiranje koliko redova Grid ima i njihova svojstvva--><!--
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <VerticalStackLayout Grid.Row="0">
-            <Label Text="Time"/>
-            <DatePicker
+            <VerticalStackLayout Grid.Row="0">
+                <Label Text="Time"/>
+                <DatePicker
                 x:Name="DatePicker"
                 HorizontalOptions="Fill"/>
-            <HorizontalStackLayout Padding="20">
-                <HorizontalStackLayout>
-                    <Label Text="From "/>
-                    <TimePicker
+                <HorizontalStackLayout Padding="20">
+                    <HorizontalStackLayout>
+                        <Label Text="From "/>
+                        <TimePicker
                         x:Name="FromTimePicker"
                         HorizontalOptions="Fill"
                         Margin="10,0"/>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout>
-                    <Label Text=" to "/>
-                    <TimePicker
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label Text=" to "/>
+                        <TimePicker
                         x:Name="ToTimePicker"
                         HorizontalOptions="Fill"
                         Margin="10,0"/>
+                    </HorizontalStackLayout>
                 </HorizontalStackLayout>
-            </HorizontalStackLayout>
-            <Button
+                <Button
                 Text="Add Date and Time"
                 Clicked="OnAddDateTimeClicked"
                 HorizontalOptions="Fill"/>
-            <HorizontalStackLayout x:Name="TimeStackLayout"/>
+                <HorizontalStackLayout x:Name="TimeStackLayout"/>
 
-        </VerticalStackLayout>
+            </VerticalStackLayout>
 
-        <VerticalStackLayout Grid.Row="1" >
-            <Label Text="Location"/>
-            <Picker
+            <VerticalStackLayout Grid.Row="1" >
+                <Label Text="Location"/>
+                <Picker
                 x:Name="CountryPicker"
                 HorizontalOptions="Fill"
                 SelectedIndexChanged="OnCountrySelected"
                 Margin="0,10"/>
-            <Picker
+                <Picker
                 x:Name="CityPicker"           
                 HorizontalOptions="Fill"
                 Margin="0,10"/>
-        </VerticalStackLayout>
-        <VerticalStackLayout Grid.Row="2">
-            <Label Text="Sport"/>
-            <Picker
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="2">
+                <Label Text="Sport"/>
+                <Picker
                 x:Name="SportPicker"
                 SelectedIndexChanged="OnSportSelected"
                 HorizontalOptions="Fill"/>
-            <HorizontalStackLayout x:Name="SportStackLayout"/>
-        </VerticalStackLayout>
-        <Button 
-            Grid.Row="3"
-            x:Name="SearchButton"
-            Text="Search"
-            Clicked="OnSearchButtonClicked"
-            HorizontalOptions="Fill"/>
-        
-    </Grid>-->
-    <VerticalStackLayout>
-        <Button 
-            x:Name="SearchButton"
-            Text="Search"
-            Clicked="OnSearchButtonClicked"
-            HorizontalOptions="Fill"/>
-        <StackLayout x:Name="FindToPlayScrollView">
+                <HorizontalStackLayout x:Name="SportStackLayout"/>
+            </VerticalStackLayout>
 
-        </StackLayout>
-    </VerticalStackLayout>
+        </Grid>
+    </VerticalStackLayout>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button 
+            Grid.Row="0"
+            x:Name="SearchButton"
+            Text="Search"
+            Clicked="OnSearchButtonClicked"
+            HorizontalOptions="Fill"/>
+
+        <ScrollView Grid.Row="1">
+            <StackLayout x:Name="FindToPlayScrollView"/>
+        </ScrollView>
+    </Grid>
 </ContentPage>
