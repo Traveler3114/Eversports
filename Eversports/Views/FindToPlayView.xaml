@@ -4,7 +4,7 @@
              x:Class="Eversports.Views.FindToPlayView"
              Margin="10">
     <Border Background="Gray" Padding="0" StrokeShape="RoundRectangle 10">
-        <VerticalStackLayout Padding="10">
+        <VerticalStackLayout>
             <Label 
             x:Name="Name"
             Text="name"
