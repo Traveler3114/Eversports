@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Eversports.Pages.FindToPlayPage"
              Title="FindToPlayPage">
-    <!--<Grid Padding="30" RowSpacing="20">
+    <VerticalStackLayout>
+        <Grid Padding="30" RowSpacing="20">
 
-         --><!--Definiranje koliko redova Grid ima i njihova svojstvva--><!-- 
+        <!--Definiranje koliko redova Grid ima i njihova svojstvva-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -55,30 +56,34 @@
                 HorizontalOptions="Fill"
                 Margin="0,10"/>
         </VerticalStackLayout>
-        <VerticalStackLayout Grid.Row="2">
-            <Label Text="Sport"/>
-            <Picker
+            <VerticalStackLayout Grid.Row="2">
+                <Label Text="Sport"/>
+                <Picker
                 x:Name="SportPicker"
                 SelectedIndexChanged="OnSportSelected"
                 HorizontalOptions="Fill"/>
-            <HorizontalStackLayout x:Name="SportStackLayout"/>
-        </VerticalStackLayout>
-        <Button 
-            Grid.Row="3"
-            x:Name="SearchButton"
-            Text="Search"
-            Clicked="OnSearchButtonClicked"
-            HorizontalOptions="Fill"/>
-        
-    </Grid>-->
-    <VerticalStackLayout>
-        <Button 
-            x:Name="SearchButton"
-            Text="Search"
-            Clicked="OnSearchButtonClicked"
-            HorizontalOptions="Fill"/>
-        <StackLayout x:Name="FindToPlayScrollView">
+                <HorizontalStackLayout x:Name="SportStackLayout"/>
+            </VerticalStackLayout>
 
-        </StackLayout>
+        </Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button 
+            Grid.Row="0"
+            x:Name="SearchButton"
+            Text="Search"
+            Clicked="OnSearchButtonClicked"
+            HorizontalOptions="Fill"/>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
+                <StackLayout x:Name="FindToPlayScrollView"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
     </VerticalStackLayout>
 </ContentPage>
