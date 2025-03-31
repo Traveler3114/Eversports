@@ -1,6 +1,7 @@
 ﻿using Eversports.Models;
 using Eversports.Services;
 using Eversports.Views;
+using Microsoft.Maui.ApplicationModel.Communication;
 using System.Xml.Linq;
 
 namespace Eversports.Pages;
@@ -193,9 +194,9 @@ public partial class FindToPlayPage : ContentPage
                 view.SetCity(item.Element("city")!.Value);
                 user.id = Convert.ToInt32(item.Element("user_id")!.Value);
                 Response response = await _userService.GetUserData(user, "getDataByID");
-                view.SetName(response.user.name);
-                view.SetSurname(response.user.surname);
-                view.SetEmail(response.user.email);
+                view.SetName((response.obj as UserInfo).name);
+                view.SetSurname((response.obj as UserInfo).surname);
+                view.SetEmail((response.obj as UserInfo).email);
                 foreach (XElement availabledatetimes in item.Descendants("availabledatetimes")){
                     foreach (XElement availabledatetime in availabledatetimes.Descendants("availabledatetime"))
                     {

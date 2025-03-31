@@ -59,7 +59,7 @@ public partial class LoginPage : ContentPage
                     await DisplayAlert("Success", response["message"], "OK");
                     await SecureStorage.Default.SetAsync("UserEmail", EmailEntry.Text);
                     Response r = await _userService.GetUserData(new UserInfo() { email=EmailEntry.Text },"getDataByEMAIL");
-                    await SecureStorage.Default.SetAsync("UserID", r.user.id.ToString());                 
+                    await SecureStorage.Default.SetAsync("UserID", (r.obj as UserInfo).id.ToString());                 
                     if (RememberMeCheckBox.IsChecked)
                     {
                         await SecureStorage.Default.SetAsync("StayLoggedIn", "true");
@@ -72,9 +72,9 @@ public partial class LoginPage : ContentPage
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            await DisplayAlert("Error", "Connection failed", "OK");
+            await DisplayAlert("Error", ex.Message, "OK");
         }
     }
 }

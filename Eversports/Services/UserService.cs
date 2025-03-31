@@ -38,25 +38,23 @@ namespace Eversports.Services
             var sendingData = new
             {
                 action = action,
-                user=user
+                user = user
             };
-            // konvertiramo objekt user u json
+
             var jsonContent = JsonSerializer.Serialize(sendingData);
-            //Ovako izgleda json file
-            //{
-            //    "action"="login"
-            //    "user"
-            //      "name": "John",
-            //      "surname": "Doe",
-            //      "email": "john@example.com",
-            //      "password": "12345"
-            //}
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync(url, content);
             var responseContent = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<Response>(responseContent);
+
+            var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
+
+            // Directly deserialize obj into UserInfo
+            deserializedResponse.obj = JsonSerializer.Deserialize<UserInfo>(deserializedResponse.obj.ToString());
+
+            return deserializedResponse;
         }
+
 
 
         private async Task<Dictionary<string, string>?> SendUserData(string action, UserInfo user)

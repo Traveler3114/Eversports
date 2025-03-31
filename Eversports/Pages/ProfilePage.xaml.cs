@@ -42,7 +42,7 @@ public partial class ProfilePage : ContentPage
 
             if (response != null && response.status == "success")
             {
-                user = response.user;
+                user = (response.obj as UserInfo);
                 NameEntry.Text = user!.name;
                 SurnameEntry.Text = user.surname;
                 EmailEntry.Text = user.email;
@@ -52,9 +52,9 @@ public partial class ProfilePage : ContentPage
                 await DisplayAlert("Error", "User not found or error in the response", "OK");
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            await DisplayAlert("Error", "Connection failed", "OK");
+            await DisplayAlert("Error", ex.Message, "OK");
         }
     }
 
@@ -84,9 +84,9 @@ public partial class ProfilePage : ContentPage
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            await DisplayAlert("Error", "Connection failed", "OK");
+            await DisplayAlert("Error", ex.Message, "OK");
         }
 
     }
