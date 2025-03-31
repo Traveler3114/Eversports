@@ -44,7 +44,10 @@ namespace Eversports.Services
                 action = "GetLookingToPlay"
             };
 
-            var response = await _client.GetAsync(url);
+            var jsonContent = JsonSerializer.Serialize(data);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync(url,content);
 
 
             string xmlContent = await response.Content.ReadAsStringAsync();
