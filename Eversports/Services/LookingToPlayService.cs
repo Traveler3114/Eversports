@@ -37,11 +37,15 @@ namespace Eversports.Services
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
 
-        public async Task<XDocument> GetLookingToPlay()
+        public async Task<XDocument> GetLookingToPlay(string country,string city,List<AvailableDateTime> availableDateTimes,List<string> choosenSports)
         {
             var data = new
             {
-                action = "GetLookingToPlay"
+                action = "GetLookingToPlay",
+                country=country,
+                city=city,
+                availableDateTimes=availableDateTimes,
+                choosenSports=choosenSports
             };
 
             var jsonContent = JsonSerializer.Serialize(data);
