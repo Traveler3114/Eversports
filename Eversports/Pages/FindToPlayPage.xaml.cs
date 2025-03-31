@@ -180,7 +180,7 @@ public partial class FindToPlayPage : ContentPage
         try
         {
             // Get the XML response from the PHP script
-            XDocument doc = await _lookingToPlayService.GetAllLookingToPlay();
+            XDocument doc = await _lookingToPlayService.GetLookingToPlay();
             UserInfo user=new UserInfo();
             FindToPlayView view=new FindToPlayView();
 

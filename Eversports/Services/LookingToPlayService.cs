@@ -37,8 +37,13 @@ namespace Eversports.Services
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
 
-        public async Task<XDocument> GetAllLookingToPlay()
+        public async Task<XDocument> GetLookingToPlay()
         {
+            var data = new
+            {
+                action = "GetLookingToPlay"
+            };
+
             var response = await _client.GetAsync(url);
 
 
