@@ -192,7 +192,7 @@ public partial class FindToPlayPage : ContentPage
                 view.SetCountry(item.Element("country")!.Value);
                 view.SetCity(item.Element("city")!.Value);
                 user.id = Convert.ToInt32(item.Element("user_id")!.Value);
-                Response response = await _userService.GetUserData(user, "getDataByID");   
+                Response response = await _userService.GetUserData(user, "getDataByID");
                 view.SetName(response.user.name);
                 view.SetSurname(response.user.surname);
                 view.SetEmail(response.user.email);
