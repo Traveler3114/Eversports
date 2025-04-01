@@ -3,6 +3,7 @@ using Eversports.Services;
 using Eversports.Views;
 using Microsoft.Maui.ApplicationModel.Communication;
 using System.Xml.Linq;
+using Windows.System;
 
 namespace Eversports.Pages;
 
@@ -184,43 +185,47 @@ public partial class FindToPlayPage : ContentPage
         {
             //COUNTRY I CITY MORAJU BITI ODABRANI ZA SAD KAKO BI RADILO ZA SAD!!!
             //NAPRAVI AKO NE POSTOJI GRUPA S TIM FILTERIMA
-            XDocument doc = await _lookingToPlayService.GetLookingToPlay(CountryPicker.SelectedItem.ToString(),CityPicker.SelectedItem.ToString(),_availableDateTimes,_choosenSports);
-            UserInfo user=new UserInfo();
-            FindToPlayView view=new FindToPlayView();
-
-            foreach (XElement item in doc.Descendants("item"))
+            var response = await _lookingToPlayService.GetLookingToPlay(CountryPicker.SelectedItem.ToString(), CityPicker.SelectedItem.ToString(), _availableDateTimes, _choosenSports);
+            if (response.status == "success")
             {
-                view.SetCountry(item.Element("country")!.Value);
-                view.SetCity(item.Element("city")!.Value);
-                user.id = Convert.ToInt32(item.Element("user_id")!.Value);
-                Response response = await _userService.GetUserData(user, "getDataByID");
-                view.SetName((response.obj as UserInfo).name);
-                view.SetSurname((response.obj as UserInfo).surname);
-                view.SetEmail((response.obj as UserInfo).email);
-                foreach (XElement availabledatetimes in item.Descendants("availabledatetimes")){
-                    foreach (XElement availabledatetime in availabledatetimes.Descendants("availabledatetime"))
-                    {
-                        view.SetDate(availabledatetime.Element("Date")!.Value);
-                        view.SetFromTime(availabledatetime.Element("FromTime")!.Value);
-                        view.SetToTime(availabledatetime.Element("ToTime")!.Value);
-                    }
-                }
-                List<string> sports = new List<string>();
-                foreach (XElement choosenSports in item.Descendants("choosenSports"))
+                XDocument doc = response.obj as XDocument;
+                UserInfo user = new UserInfo();
+                FindToPlayView view = new FindToPlayView();
+
+                foreach (XElement item in doc.Descendants("item"))
                 {
-                    foreach (XElement sport in choosenSports.Descendants("sport"))
+                    view.SetCountry(item.Element("country")!.Value);
+                    view.SetCity(item.Element("city")!.Value);
+                    user.id = Convert.ToInt32(item.Element("user_id")!.Value);
+                    Response response1 = await _userService.GetUserData(user, "getDataByID");
+                    view.SetName((response1.obj as UserInfo).name);
+                    view.SetSurname((response1.obj as UserInfo).surname);
+                    view.SetEmail((response1.obj as UserInfo).email);
+                    foreach (XElement availabledatetimes in item.Descendants("availabledatetimes"))
                     {
-                        sports.Add(sport.Element("name")!.Value);
+                        foreach (XElement availabledatetime in availabledatetimes.Descendants("availabledatetime"))
+                        {
+                            view.SetDate(availabledatetime.Element("Date")!.Value);
+                            view.SetFromTime(availabledatetime.Element("FromTime")!.Value);
+                            view.SetToTime(availabledatetime.Element("ToTime")!.Value);
+                        }
                     }
+                    List<string> sports = new List<string>();
+                    foreach (XElement choosenSports in item.Descendants("choosenSports"))
+                    {
+                        foreach (XElement sport in choosenSports.Descendants("sport"))
+                        {
+                            sports.Add(sport.Element("name")!.Value);
+                        }
+                    }
+                    string sportsString = string.Join(", ", sports);
+
+                    view.SetSports(sportsString);
                 }
-                string sportsString = string.Join(", ", sports);
+                FindToPlayScrollView.Children.Add(view);
 
-                view.SetSports(sportsString);
+                //await DisplayAlert("XML Response", doc.ToString(), "OK");
             }
-            FindToPlayScrollView.Children.Add(view);
-
-            //await DisplayAlert("XML Response", doc.ToString(), "OK");
-
         }
         catch (Exception ex)
         {

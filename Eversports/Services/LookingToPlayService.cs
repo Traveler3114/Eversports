@@ -37,7 +37,7 @@ namespace Eversports.Services
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
 
-        public async Task<XDocument> GetLookingToPlay(string country,string city,List<AvailableDateTime> availableDateTimes,List<string> choosenSports)
+        public async Task<Response> GetLookingToPlay(string country,string city,List<AvailableDateTime> availableDateTimes,List<string> choosenSports)
         {
             var data = new
             {
@@ -48,16 +48,18 @@ namespace Eversports.Services
                 choosenSports=choosenSports
             };
 
+
             var jsonContent = JsonSerializer.Serialize(data);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync(url,content);
 
+            var responseContent = await response.Content.ReadAsStringAsync();
 
-            string xmlContent = await response.Content.ReadAsStringAsync();
+            var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
+            deserializedResponse.obj = XDocument.Parse(deserializedResponse.obj.ToString());
 
-            // Parse the XML content into an XDocument
-            return XDocument.Parse(xmlContent);
+            return deserializedResponse;
         }
     }
 }
