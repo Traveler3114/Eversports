@@ -226,6 +226,10 @@ public partial class FindToPlayPage : ContentPage
 
                 //await DisplayAlert("XML Response", doc.ToString(), "OK");
             }
+            else
+            {
+                await DisplayAlert("Error", response.obj as String, "OK");
+            }
         }
         catch (Exception ex)
         {

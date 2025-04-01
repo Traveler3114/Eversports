@@ -57,8 +57,15 @@ namespace Eversports.Services
             var responseContent = await response.Content.ReadAsStringAsync();
 
             var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
-            deserializedResponse.obj = XDocument.Parse(deserializedResponse.obj.ToString());
 
+            if (deserializedResponse.status == "succes")
+            {
+                deserializedResponse.obj = XDocument.Parse(deserializedResponse.obj.ToString());
+            }
+            else
+            {
+                deserializedResponse.obj = deserializedResponse.obj.ToString();
+            }
             return deserializedResponse;
         }
     }
