@@ -37,14 +37,16 @@ namespace Eversports.Services
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
 
-        public async Task<Response> GetLookingToPlay(string country,string city,List<AvailableDateTime> availableDateTimes,List<string> choosenSports)
+        public async Task<Response> GetLookingToPlay(string country,string city,List<string> Dates, List<string> FromTimes, List<string> ToTimes, List<string> choosenSports)
         {
             var data = new
             {
                 action = "GetLookingToPlay",
                 country=country,
                 city=city,
-                availableDateTimes=availableDateTimes,
+                Dates=Dates,
+                FromTimes=FromTimes,
+                ToTimes=ToTimes,
                 choosenSports=choosenSports
             };
 
@@ -58,7 +60,7 @@ namespace Eversports.Services
 
             var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
 
-            if (deserializedResponse.status == "succes")
+            if (deserializedResponse.status == "success")
             {
                 deserializedResponse.obj = XDocument.Parse(deserializedResponse.obj.ToString());
             }

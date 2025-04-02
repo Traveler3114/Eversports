@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Eversports.Pages.FindToPlayPage"
-             Title="FindToPlayPage">
+             Title="Find to play">
     <Grid Padding="30" RowSpacing="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -13,26 +13,38 @@
         </Grid.RowDefinitions>
 
         <VerticalStackLayout Grid.Row="0">
-            <Label Text="Time"/>
-            <DatePicker
-            x:Name="DatePicker"
-            HorizontalOptions="Fill"/>
+            
             <HorizontalStackLayout Padding="20">
-                <HorizontalStackLayout>
+                
+                <VerticalStackLayout>
+                    <Label Text="Time"/>
+                    <DatePicker
+                    x:Name="DatePicker"
+                    HorizontalOptions="Fill"/>
+                    <StackLayout x:Name="DateStackLayout"/>
+                </VerticalStackLayout>
+                
+                
+                <VerticalStackLayout>
                     <Label Text="From "/>
                     <TimePicker
-                    x:Name="FromTimePicker"
-                    HorizontalOptions="Fill"
-                    Margin="10,0"/>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout>
-                    <Label Text=" to "/>
+                        x:Name="FromTimePicker"
+                        HorizontalOptions="Fill"
+                        Margin="10,0"/>
+                    <StackLayout x:Name="FromTimeStackLayout"/>
+                </VerticalStackLayout>
+                
+                
+                <VerticalStackLayout>
+                    <Label Text="To "/>
                     <TimePicker
-                    x:Name="ToTimePicker"
-                    HorizontalOptions="Fill"
-                    Margin="10,0"/>
-                </HorizontalStackLayout>
-            </HorizontalStackLayout>
+                        x:Name="ToTimePicker"
+                        HorizontalOptions="Fill"
+                        Margin="10,0"/>
+                    <StackLayout x:Name="ToTimeStackLayout"/>
+                </VerticalStackLayout>
+                
+        </HorizontalStackLayout>
             <Button
             Text="Add Date and Time"
             Clicked="OnAddDateTimeClicked"
