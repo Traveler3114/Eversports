@@ -4,7 +4,7 @@ using Eversports.Views;
 using Microsoft.Maui.ApplicationModel.Communication;
 using System;
 using System.Xml.Linq;
-using Windows.System;
+//using Windows.System;
 
 namespace Eversports.Pages;
 
