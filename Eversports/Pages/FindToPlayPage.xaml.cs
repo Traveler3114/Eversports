@@ -169,18 +169,27 @@ public partial class FindToPlayPage : ContentPage
         }
     }
 
-    private void OnAddDateTimeClicked(object sender, EventArgs e)
+    private void OnAddDateClicked(object sender, EventArgs e)
     {
         var dateEntry = DatePicker.Date.ToString("d");
-        var fromTimeEntry = FromTimePicker.Time.ToString(@"hh\:mm");
-        var toTimeEntry = ToTimePicker.Time.ToString(@"hh\:mm");
         Dates.Add(dateEntry);
-        FromTimes.Add(fromTimeEntry);
-        ToTimes.Add(toTimeEntry);
         DateStackLayout.Children.Add(new ItemView(dateEntry, () => RemoveDate(dateEntry)));
+    }
+
+    private void OnAddFromTimeClicked(object sender, EventArgs e)
+    {
+        var fromTimeEntry = FromTimePicker.Time.ToString(@"hh\:mm");
+        FromTimes.Add(fromTimeEntry);
         FromTimeStackLayout.Children.Add(new ItemView(fromTimeEntry, () => RemoveFromTime(fromTimeEntry)));
+    }
+    private void OnAddToTimeClicked(object sender, EventArgs e)
+    {
+        var toTimeEntry = ToTimePicker.Time.ToString(@"hh\:mm");
+        ToTimes.Add(toTimeEntry);
         ToTimeStackLayout.Children.Add(new ItemView(toTimeEntry, () => RemoveToTime(toTimeEntry)));
     }
+
+
 
     public async void OnSearchButtonClicked(object sender, EventArgs e)
     {

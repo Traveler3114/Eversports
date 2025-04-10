@@ -13,18 +13,22 @@
         </Grid.RowDefinitions>
 
         <VerticalStackLayout Grid.Row="0">
-            
+
             <HorizontalStackLayout Padding="20">
-                
+
                 <VerticalStackLayout>
                     <Label Text="Time"/>
                     <DatePicker
                     x:Name="DatePicker"
                     HorizontalOptions="Fill"/>
                     <StackLayout x:Name="DateStackLayout"/>
+                    <Button
+                        Text="Add Date"
+                        Clicked="OnAddDateClicked"
+                        HorizontalOptions="Fill"/>
                 </VerticalStackLayout>
-                
-                
+
+
                 <VerticalStackLayout>
                     <Label Text="From "/>
                     <TimePicker
@@ -32,9 +36,13 @@
                         HorizontalOptions="Fill"
                         Margin="10,0"/>
                     <StackLayout x:Name="FromTimeStackLayout"/>
+                    <Button
+                        Text="Add FromTime"
+                        Clicked="OnAddFromTimeClicked"
+                        HorizontalOptions="Fill"/>
                 </VerticalStackLayout>
-                
-                
+
+
                 <VerticalStackLayout>
                     <Label Text="To "/>
                     <TimePicker
@@ -42,13 +50,13 @@
                         HorizontalOptions="Fill"
                         Margin="10,0"/>
                     <StackLayout x:Name="ToTimeStackLayout"/>
+                    <Button
+                        Text="Add ToTime"
+                        Clicked="OnAddToTimeClicked"
+                        HorizontalOptions="Fill"/>
                 </VerticalStackLayout>
-                
-        </HorizontalStackLayout>
-            <Button
-            Text="Add Date and Time"
-            Clicked="OnAddDateTimeClicked"
-            HorizontalOptions="Fill"/>
+
+            </HorizontalStackLayout>
             <HorizontalStackLayout x:Name="TimeStackLayout"/>
 
         </VerticalStackLayout>
