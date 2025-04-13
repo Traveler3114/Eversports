@@ -56,25 +56,28 @@ public partial class LoginPage : ContentPage
             {
                 if (response["status"] == "success")
                 {
-                    await DisplayAlert("Success", response["message"], "OK");
-                    await SecureStorage.Default.SetAsync("UserEmail", EmailEntry.Text);
-                    Response r = await _userService.GetUserData(new UserInfo() { email=EmailEntry.Text },"getDataByEMAIL");
-                    await SecureStorage.Default.SetAsync("UserID", (r.obj as UserInfo).id.ToString());                 
+                    string jwt = response["token"];
+                    await SecureStorage.Default.SetAsync("JWTToken", jwt);
+
+
                     if (RememberMeCheckBox.IsChecked)
                     {
                         await SecureStorage.Default.SetAsync("StayLoggedIn", "true");
                     }
+
+
+
                     ((App?)Application.Current!).SetToAppShellMain();
                 }
                 else
                 {
-                    await DisplayAlert("Error", response["message"], "OK");
+                    await DisplayAlert("Error", "LoginPage:" + response["message"], "OK");
                 }
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", ex.Message, "OK");
+            await DisplayAlert("Error", "LoginPage:" + ex.Message, "OK");
         }
     }
 }

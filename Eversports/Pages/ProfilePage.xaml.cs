@@ -31,14 +31,9 @@ public partial class ProfilePage : ContentPage
 
     public async Task GetUserData()
     {
-        user = new UserInfo()
-        {
-            email = await SecureStorage.Default.GetAsync("UserEmail") ?? string.Empty
-        };
-
         try
         {
-            var response = await _userService.GetUserData(user,"getDataByEMAIL");
+            var response = await _userService.GetUserData("getUserData");
 
             if (response != null && response.status == "success")
             {
@@ -54,7 +49,7 @@ public partial class ProfilePage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", ex.Message, "OK");
+            await DisplayAlert("Error", "ProfilePage:" + ex.Message, "OK");
         }
     }
 
@@ -75,18 +70,18 @@ public partial class ProfilePage : ContentPage
             {
                 if (response["status"] == "success")
                 {
-                    await DisplayAlert("Success", response["message"], "OK");
+                    await DisplayAlert("Success", "ProfilePage:" + response["message"], "OK");
                     user = changedUser;
                 }
                 else
                 {
-                    await DisplayAlert("Error", response["message"], "OK");
+                    await DisplayAlert("Error", "ProfilePage:" + response["message"], "OK");
                 }
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", ex.Message, "OK");
+            await DisplayAlert("Error", "ProfilePage:" + ex.Message, "OK");
         }
 
     }

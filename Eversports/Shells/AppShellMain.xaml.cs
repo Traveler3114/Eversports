@@ -11,6 +11,7 @@ public partial class AppShellMain : Shell
 
     private void OnLogoutClicked(object sender, EventArgs e)
     {
+        SecureStorage.Default.Remove("JWTToken");
         SecureStorage.Default.Remove("StayLoggedIn");
         // Call the OnLogout method in the App class
         ((App)Application.Current!)?.SetToAppShellLogin();

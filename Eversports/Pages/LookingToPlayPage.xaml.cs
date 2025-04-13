@@ -197,7 +197,7 @@ public partial class LookingToPlayPage : ContentPage
         }
         catch (Exception ex) 
         {
-            await DisplayAlert("Error", "Error in " + ex.Message, "OK");
+            await DisplayAlert("Error", "LookingToPlayPage: " + ex.Message, "OK");
         }
     }
 }

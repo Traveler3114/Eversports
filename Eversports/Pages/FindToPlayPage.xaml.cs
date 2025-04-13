@@ -202,15 +202,14 @@ public partial class FindToPlayPage : ContentPage
             if (response.status == "success")
             {
                 XDocument doc = response.obj as XDocument;
-                UserInfo user = new UserInfo();
                 FindToPlayView view = new FindToPlayView();
 
                 foreach (XElement item in doc.Descendants("item"))
                 {
                     view.SetCountry(item.Element("country")!.Value);
                     view.SetCity(item.Element("city")!.Value);
-                    user.id = Convert.ToInt32(item.Element("user_id")!.Value);
-                    Response response1 = await _userService.GetUserData(user, "getDataByID");
+                    int userId = Convert.ToInt32(item.Element("user_id")!.Value);
+                    Response response1 = await _userService.GetUserData("getUserData", userId);
                     view.SetName((response1.obj as UserInfo).name);
                     view.SetSurname((response1.obj as UserInfo).surname);
                     view.SetEmail((response1.obj as UserInfo).email);
@@ -246,7 +245,7 @@ public partial class FindToPlayPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", ex.Message, "OK");
+            await DisplayAlert("Error", "FindToPlayPage:" + ex.Message, "OK");
         }
     }
 }

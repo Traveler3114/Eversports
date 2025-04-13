@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Eversports.Models;
+//using static UIKit.UIGestureRecognizer;
 
 namespace Eversports.Services
 {
@@ -30,15 +31,16 @@ namespace Eversports.Services
 
         public async Task<Dictionary<string, string>?> SetUserData(UserInfo user)
         {
-            return await SendUserData("setData", user);
+            return await SendUserData("setUserData", user);
         }
 
-        public async Task<Response?> GetUserData(UserInfo user, string action)
+        public async Task<Response?> GetUserData(string action, int? userId = null)
         {
             var sendingData = new
             {
                 action = action,
-                user = user
+                jwt = await SecureStorage.Default.GetAsync("JWTToken"),
+                user_id = userId
             };
 
             var jsonContent = JsonSerializer.Serialize(sendingData);
@@ -48,8 +50,6 @@ namespace Eversports.Services
             var responseContent = await response.Content.ReadAsStringAsync();
 
             var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
-
-            // Directly deserialize obj into UserInfo
             deserializedResponse.obj = JsonSerializer.Deserialize<UserInfo>(deserializedResponse.obj.ToString());
 
             return deserializedResponse;
@@ -57,13 +57,17 @@ namespace Eversports.Services
 
 
 
+
         private async Task<Dictionary<string, string>?> SendUserData(string action, UserInfo user)
         {
+
             var sendingData = new
             {
-                action,
-                user
-            };
+                action=action,
+                jwt= await SecureStorage.Default.GetAsync("JWTToken"),
+                user =user,
+                remember_me=SecureStorage.Default.GetAsync("StayLoggedIn").Result
+        };
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 

@@ -59,17 +59,17 @@ public partial class RegistrationPage : ContentPage
             {
                 if (response["status"] == "success")
                 {
-                    await DisplayAlert("Success", response["message"], "OK");
+                    await DisplayAlert("Success", "RegistrationPage:" + response["message"], "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Error", response["message"], "OK");
+                    await DisplayAlert("Error", "RegistrationPage:" + response["message"], "OK");
                 }
             }
         }
-        catch (Exception) 
+        catch (Exception ex) 
         {
-            await DisplayAlert("Error", "Connection failed", "OK");
+            await DisplayAlert("Error", "RegistrationPage:" + ex.Message, "OK");
         }
     }
 }
