@@ -5,7 +5,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Eversports.Models;
-//using static UIKit.UIGestureRecognizer;
 
 namespace Eversports.Services
 {
@@ -67,7 +66,7 @@ namespace Eversports.Services
                 jwt= await SecureStorage.Default.GetAsync("JWTToken"),
                 user =user,
                 remember_me=SecureStorage.Default.GetAsync("StayLoggedIn").Result
-        };
+            };
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 

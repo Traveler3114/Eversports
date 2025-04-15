@@ -202,10 +202,12 @@ public partial class FindToPlayPage : ContentPage
             if (response.status == "success")
             {
                 XDocument doc = response.obj as XDocument;
+                //await DisplayAlert("A", doc.ToString(), "OK");
                 FindToPlayView view = new FindToPlayView();
 
                 foreach (XElement item in doc.Descendants("item"))
                 {
+                    view.SetID(Convert.ToInt32(item.Element("id")!.Value));
                     view.SetCountry(item.Element("country")!.Value);
                     view.SetCity(item.Element("city")!.Value);
                     int userId = Convert.ToInt32(item.Element("user_id")!.Value);

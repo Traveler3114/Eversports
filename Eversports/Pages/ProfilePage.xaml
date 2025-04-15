@@ -28,11 +28,6 @@
                 Placeholder="Email"
                 Keyboard="Email"
                 HorizontalOptions="Fill" />
-        <Entry
-                x:Name="PhoneNumberEntry"
-                Placeholder="Phone number"
-                Keyboard="Default"
-                HorizontalOptions="Fill" />
 
         <Entry
                 x:Name="PasswordEntry"

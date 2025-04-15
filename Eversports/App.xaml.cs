@@ -2,6 +2,7 @@
 using System.Text;
 using System;
 using Eversports.Shells;
+using Eversports.Pages;
 
 namespace Eversports
 {
@@ -41,6 +42,10 @@ namespace Eversports
         {
             // Remove the login state from Secure Storage
             Windows[0].Page = new AppShellLogin();
+        }
+        public void SetToChatPage(int lookingtoplay_id)
+        {
+            Windows[0].Page = new ChatPage(lookingtoplay_id);
         }
 
         public async Task CheckTokenValidity()

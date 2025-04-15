@@ -2,6 +2,13 @@ namespace Eversports.Views;
 
 public partial class FindToPlayView : ContentView
 {
+    private int lookingtoplay_id;
+
+    public void SetID(int _lookingtoplay_id)
+    {
+        lookingtoplay_id = _lookingtoplay_id;
+    }
+
     public void SetName(string name)
     {
         Name.Text = name;
@@ -46,4 +53,12 @@ public partial class FindToPlayView : ContentView
 	{
 		InitializeComponent();
 	}
+
+    private void OnTapped(object sender, EventArgs e)
+    {
+        // Do something when the view is clicked
+        ((App)Application.Current!)?.SetToChatPage(lookingtoplay_id);
+
+        // For example, you could send a message to the ViewModel, raise an event, etc.
+    }
 }

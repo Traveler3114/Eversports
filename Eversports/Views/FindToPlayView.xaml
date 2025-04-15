@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Eversports.Views.FindToPlayView"
              Margin="10">
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer Tapped="OnTapped" />
+    </ContentView.GestureRecognizers>
     <Border Background="Gray" Padding="0" StrokeShape="RoundRectangle 10">
         <VerticalStackLayout Padding="10">
             <Label 
@@ -18,11 +21,6 @@
             <Label 
             x:Name="Email"
             Text="email"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-            <Label 
-            x:Name="PhoneNumber"
-            Text="phonenumber"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
             <Label 
