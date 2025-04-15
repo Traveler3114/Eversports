@@ -9,6 +9,8 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>
+        <StackLayout x:Name="MessagesScrollView"/>
+
         <HorizontalStackLayout>
             <Entry x:Name="Message"/>
             <Button x:Name="SendMsgButton" Text="Send" Clicked="SendMsgButton_Clicked"/>

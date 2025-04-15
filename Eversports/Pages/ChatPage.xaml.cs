@@ -1,6 +1,7 @@
 using System.Xml.Linq;
 using Eversports.Models;
 using Eversports.Services;
+using Eversports.Views;
 
 namespace Eversports.Pages;
 
@@ -50,9 +51,29 @@ public partial class ChatPage : ContentPage
         try
         {
             var response = await _chatService.GetAllMessages("getAllMessages", lookingtoplay_id);
-            var doc = response.obj as XDocument;
-            await DisplayAlert("OK", doc.ToString(), "OK");
-            //await DisplayAlert("ok", response, "ok");
+            XDocument doc = response.obj as XDocument;
+            //await DisplayAlert("OK", doc.ToString(), "OK");
+
+
+            foreach (XElement item in doc.Descendants("item"))
+            {
+                var ownerID=Convert.ToInt32(item.Element("sender_id")!.Value);
+                var message=item.Element("encrypted_message")!.Value;
+
+
+                UserService userService = new UserService();
+                var r = await userService.GetUserData("getUserData");
+                
+
+                if ((r.obj as UserInfo).id == ownerID)
+                {
+                    MessagesScrollView.Children.Add(new MessageView(message, Color.FromRgb(0, 255, 0)));
+                }
+                else
+                {
+                    MessagesScrollView.Children.Add(new MessageView(message,Color.FromRgb(0,0,255)));
+                }
+            }
         }
         catch (Exception ex)
         {
