@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using Eversports.Models;
 using Eversports.Services;
 
@@ -15,6 +16,12 @@ public partial class ChatPage : ContentPage
         _chatService = new ChatService();
 	}
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await ShowAllMessages();
+    }
+
     private void BackButton_Clicked(object sender, EventArgs e)
     {
         ((App)Application.Current!)?.SetToAppShellMain();
@@ -31,6 +38,21 @@ public partial class ChatPage : ContentPage
             {
                 await DisplayAlert("ok", response["message"], "ok");
             }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", "ChatPage:" + ex.Message, "OK");
+        }
+    }
+
+    private async Task ShowAllMessages()
+    {
+        try
+        {
+            var response = await _chatService.GetAllMessages("getAllMessages", lookingtoplay_id);
+            var doc = response.obj as XDocument;
+            await DisplayAlert("OK", doc.ToString(), "OK");
+            //await DisplayAlert("ok", response, "ok");
         }
         catch (Exception ex)
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Eversports.Models;
 
 namespace Eversports.Services
@@ -35,23 +36,32 @@ namespace Eversports.Services
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
 
+        public async Task<Response?> GetAllMessages(string action,int lookingtoplay_id)
+        {
+            var sendingData = new
+            {
+                action = action,
+                lookingtoplay_id = lookingtoplay_id,
+            };
 
+            var jsonContent = JsonSerializer.Serialize(sendingData);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        //public async Task<string?> SendMessage(string action, int lookingtoplay_id, string message)
-        //{
-        //    var sendingData = new
-        //    {
-        //        action = action,
-        //        jwt = await SecureStorage.Default.GetAsync("JWTToken"),
-        //        lookingtoplay_id = lookingtoplay_id,
-        //        message = message
-        //    };
-        //    var jsonContent = JsonSerializer.Serialize(sendingData);
-        //    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync(url, content);
 
-        //    var response = await _client.PostAsync(url, content);
-        //    var responseContent = await response.Content.ReadAsStringAsync();
-        //    return responseContent;
-        //}
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
+
+            if (deserializedResponse.status == "success")
+            {
+                deserializedResponse.obj = XDocument.Parse(deserializedResponse.obj.ToString());
+            }
+            else
+            {
+                deserializedResponse.obj = deserializedResponse.obj.ToString();
+            }
+            return deserializedResponse;
+        }
     }
 }
