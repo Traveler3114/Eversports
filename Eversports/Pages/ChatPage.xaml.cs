@@ -63,15 +63,17 @@ public partial class ChatPage : ContentPage
 
                 UserService userService = new UserService();
                 var r = await userService.GetUserData("getUserData");
-                
 
+                var ownerResponse= await userService.GetUserData("getUserData",ownerID);
+
+                string ownerName = (r.obj as UserInfo).name + " " + (r.obj as UserInfo).surname;
                 if ((r.obj as UserInfo).id == ownerID)
                 {
-                    MessagesScrollView.Children.Add(new MessageView(message, Color.FromRgb(0, 255, 0)));
+                    MessagesScrollView.Children.Add(new MessageView(ownerName,message, Color.FromRgb(0, 255, 0)));
                 }
                 else
                 {
-                    MessagesScrollView.Children.Add(new MessageView(message,Color.FromRgb(0,0,255)));
+                    MessagesScrollView.Children.Add(new MessageView(ownerName, message,Color.FromRgb(0,0,255)));
                 }
             }
         }
