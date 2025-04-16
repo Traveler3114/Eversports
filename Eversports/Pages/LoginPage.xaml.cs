@@ -25,15 +25,6 @@ public partial class LoginPage : ContentPage
 
     private async void OnLoginButtonClicked(object sender, EventArgs e)
 	{
-        try
-        {
-            await DisplayAlert("OK", await SecureStorage.Default.GetAsync("JWTToken"), "OK");
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("OK", ex.Message, "OK");
-        }
-
         if (string.IsNullOrEmpty(EmailEntry.Text) || string.IsNullOrEmpty(PasswordEntry.Text))
         {
             await DisplayAlert("Login failed", "You didn't enter all the necessary data.", "OK");
