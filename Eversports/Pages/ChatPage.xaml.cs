@@ -20,7 +20,8 @@ public partial class ChatPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await ShowAllMessages();
+        UpdateMessages();
+
     }
 
     private void BackButton_Clicked(object sender, EventArgs e)
@@ -45,9 +46,19 @@ public partial class ChatPage : ContentPage
             await DisplayAlert("Error", "ChatPage:" + ex.Message, "OK");
         }
     }
+    private System.Timers.Timer? _messageUpdateTimer;
+
+    private void UpdateMessages()
+    {
+        _messageUpdateTimer = new System.Timers.Timer(3000);
+        _messageUpdateTimer.Elapsed += async (s, e) => await MainThread.InvokeOnMainThreadAsync(ShowAllMessages);
+        _messageUpdateTimer.AutoReset = true;
+        _messageUpdateTimer.Start();
+    }
 
     private async Task ShowAllMessages()
     {
+        MessagesScrollView.Children.Clear();
         try
         {
             var response = await _chatService.GetAllMessages("getAllMessages", lookingtoplay_id);

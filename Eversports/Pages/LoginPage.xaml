@@ -9,7 +9,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
         <Entry
@@ -25,23 +24,8 @@
                 Placeholder="Password"
                 IsPassword="True"
                 HorizontalOptions="Fill" />
-
-        <HorizontalStackLayout
-                Grid.Row="2"
-                HorizontalOptions="Center"
-                VerticalOptions="Center">
-            <CheckBox
-                    x:Name="RememberMeCheckBox"
-                    IsChecked="False" />
-            <Label
-                    Text="Remember me"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Start"
-                    VerticalTextAlignment="Center"
-                    HorizontalTextAlignment="Start" />
-        </HorizontalStackLayout>
         <Button
-                Grid.Row="3"
+                Grid.Row="2"
                 x:Name="LoginButton"
                 Text="Login"
                 Clicked="OnLoginButtonClicked"

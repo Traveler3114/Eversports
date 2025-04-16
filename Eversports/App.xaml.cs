@@ -8,19 +8,21 @@ namespace Eversports
 {
     public partial class App : Application
     {
+        private bool isTokenValid;
         public App()
         {
             InitializeComponent();
-            CheckTokenValidity();
         }
 
-
+        protected override async void OnStart()
+        {
+            base.OnStart();
+            isTokenValid = await CheckTokenValidity();
+        }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            var isUserLoggedIn = SecureStorage.Default.GetAsync("StayLoggedIn").Result;
-
-            if (isUserLoggedIn == "true")
+            if (isTokenValid)
             {
                 return new Window(new AppShellMain()); // Main app shell
             }
@@ -48,7 +50,7 @@ namespace Eversports
             Windows[0].Page = new ChatPage(lookingtoplay_id);
         }
 
-        public async Task CheckTokenValidity()
+        public async Task<bool> CheckTokenValidity()
         {
 
             var sendingData = new
@@ -64,8 +66,9 @@ namespace Eversports
             var deserializedResponse=JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
             if (deserializedResponse["status"] == "error")
             {
-                SecureStorage.Default.Remove("StayLoggedIn");
+                return false;
             }
+            return true;
         }
     }
 }

@@ -19,6 +19,7 @@ public partial class LoginPage : ContentPage
 	{
 		InitializeComponent();
         _userService = new UserService();
+        DisplayAlert("OK", SecureStorage.Default.GetAsync("JWTToken").Result, "OK");
     }
 	private async void OnLoginButtonClicked(object sender, EventArgs e)
 	{
@@ -58,13 +59,6 @@ public partial class LoginPage : ContentPage
                 {
                     string jwt = response["token"];
                     await SecureStorage.Default.SetAsync("JWTToken", jwt);
-
-
-                    if (RememberMeCheckBox.IsChecked)
-                    {
-                        await SecureStorage.Default.SetAsync("StayLoggedIn", "true");
-                    }
-
 
 
                     ((App?)Application.Current!).SetToAppShellMain();
