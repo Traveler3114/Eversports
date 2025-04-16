@@ -14,9 +14,13 @@ namespace Eversports
             InitializeComponent();
         }
 
+
+        //FUNKCIJA SE POZIVA
         protected override async void OnStart()
         {
+            
             base.OnStart();
+            //Windows[0].Page = new ChatPage(1);
             isTokenValid = await CheckTokenValidity();
         }
 

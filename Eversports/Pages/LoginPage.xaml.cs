@@ -19,10 +19,21 @@ public partial class LoginPage : ContentPage
 	{
 		InitializeComponent();
         _userService = new UserService();
-        DisplayAlert("OK", SecureStorage.Default.GetAsync("JWTToken").Result, "OK");
     }
-	private async void OnLoginButtonClicked(object sender, EventArgs e)
+
+
+
+    private async void OnLoginButtonClicked(object sender, EventArgs e)
 	{
+        try
+        {
+            await DisplayAlert("OK", await SecureStorage.Default.GetAsync("JWTToken"), "OK");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("OK", ex.Message, "OK");
+        }
+
         if (string.IsNullOrEmpty(EmailEntry.Text) || string.IsNullOrEmpty(PasswordEntry.Text))
         {
             await DisplayAlert("Login failed", "You didn't enter all the necessary data.", "OK");
@@ -43,7 +54,7 @@ public partial class LoginPage : ContentPage
 
     public async Task LoginUser()
     {
-
+        
         UserInfo user = new UserInfo()
         {
             password = PasswordEntry.Text,
