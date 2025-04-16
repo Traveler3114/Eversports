@@ -16,7 +16,7 @@ namespace Eversports.Services
         private string url;
         public ChatService() {
             _client = new HttpClient();
-            url = "http://localhost/EversportsAPI/";
+            url = "http://traveler3114.ddns.net/EversportsAPI/";
         }
 
         public async Task<Dictionary<string, string>?> SendMessage(string action, int lookingtoplay_id, string message)

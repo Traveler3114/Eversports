@@ -18,7 +18,7 @@ namespace Eversports.Services
         public LookingToPlayService()
         {
             _client = new HttpClient();
-            url = "http://localhost/EversportsAPI/";
+            url = "http://traveler3114.ddns.net/EversportsAPI/";
         }
 
         public async Task<Dictionary<string, string>?> AddLookingToPlay(LookingToPlay lookingToPlay)
