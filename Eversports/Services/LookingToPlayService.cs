@@ -32,7 +32,7 @@ namespace Eversports.Services
 
             var jsonContent = JsonSerializer.Serialize(data);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync("http://localhost/EversportsAPI/", content);
+            var response = await _client.PostAsync(url, content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
