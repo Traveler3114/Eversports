@@ -20,6 +20,10 @@
         <ShellContent 
             ContentTemplate="{DataTemplate local:ProfilePage}" />
     </FlyoutItem>
+    <FlyoutItem x:Name="AdminFlyoutItem" Title="Admin">
+    <ShellContent 
+            ContentTemplate="{DataTemplate local:AdminPage}" />
+    </FlyoutItem>
     <Shell.FlyoutFooter>
         <StackLayout Padding="20">
             <Button Text="Sign Out" Clicked="OnLogoutClicked"/>
