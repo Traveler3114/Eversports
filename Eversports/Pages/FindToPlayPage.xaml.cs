@@ -203,7 +203,7 @@ public partial class FindToPlayPage : ContentPage
             {
                 XDocument doc = response.obj as XDocument;
                 //await DisplayAlert("A", doc.ToString(), "OK");
-                FindToPlayView view = new FindToPlayView();
+                FindToPlayView view = new FindToPlayView("FindToPlayPage");
 
                 foreach (XElement item in doc.Descendants("item"))
                 {

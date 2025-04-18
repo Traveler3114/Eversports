@@ -1,3 +1,6 @@
+using Eversports.Models;
+using Eversports.Services;
+
 namespace Eversports.Views;
 
 public partial class FindToPlayView : ContentView
@@ -49,16 +52,25 @@ public partial class FindToPlayView : ContentView
         Sports.Text = sports;
     }
 
-    public FindToPlayView()
+
+    private string page;
+    private readonly LookingToPlayService _lookingToPlayService;
+    public FindToPlayView(string _page)
 	{
 		InitializeComponent();
+        page = _page;
+        _lookingToPlayService=new LookingToPlayService();
 	}
 
-    private void OnTapped(object sender, EventArgs e)
+    private async void OnTapped(object sender, EventArgs e)
     {
-        // Do something when the view is clicked
-        ((App)Application.Current!)?.SetToChatPage(lookingtoplay_id);
-
-        // For example, you could send a message to the ViewModel, raise an event, etc.
+        if (page == "FindToPlayPage")
+        {
+            ((App)Application.Current!)?.SetToChatPage(lookingtoplay_id);
+        }
+        else
+        {
+            await _lookingToPlayService.DeleteLookingToPlay(lookingtoplay_id);
+        }
     }
 }

@@ -188,7 +188,7 @@ public partial class LookingToPlayPage : ContentPage
             detailedLocation = DetailedLocationEntry.Text,
             choosenSports=_choosenSports,
             description = DescriptionEntry.Text,
-            user_id = Convert.ToInt32(await SecureStorage.Default.GetAsync("UserID"))
+            jwt = await SecureStorage.Default.GetAsync("JWTToken")
         };
 
         try

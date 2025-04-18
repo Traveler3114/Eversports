@@ -16,6 +16,6 @@ namespace Eversports.Models
         public string detailedLocation { get; set; }
         public List<string> choosenSports { get; set; }
         public string description { get; set; }
-        public int user_id { get; set; }
+        public string jwt { get; set; }
     }
 }
