@@ -3,7 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Eversports.Pages.AdminPage"
              Title="Admin">
-    <ScrollView>
-        <StackLayout x:Name="FindToPlayScrollView"/>
-    </ScrollView>
+    <HorizontalStackLayout>
+        <ScrollView>
+            <StackLayout x:Name="FindToPlayScrollView"/>
+        </ScrollView>
+        <ScrollView>
+            <StackLayout x:Name="UsersScrollView"/>
+        </ScrollView>
+    </HorizontalStackLayout>
+
 </ContentPage>

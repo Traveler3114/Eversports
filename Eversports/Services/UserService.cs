@@ -73,5 +73,25 @@ namespace Eversports.Services
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
+
+        public async Task<Response?> GetAllUsers()
+        {
+            var sendingData = new
+            {
+                action = "GetAllUsers",
+            };
+
+            var jsonContent = JsonSerializer.Serialize(sendingData);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync(url, content);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
+            deserializedResponse.obj = JsonSerializer.Deserialize<List<UserInfo>>(deserializedResponse.obj.ToString());
+
+
+            return deserializedResponse;
+        }
     }
 }

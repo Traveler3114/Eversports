@@ -18,11 +18,11 @@ public partial class AdminPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await GetAll();
+        await ShowAllLookingToPlay();
     }
 
 
-    public async Task GetAll()
+    public async Task ShowAllLookingToPlay()
     {
         FindToPlayScrollView.Children.Clear();
         try
