@@ -93,5 +93,24 @@ namespace Eversports.Services
 
             return deserializedResponse;
         }
+
+        public async Task DeleteUser(int user_id)
+        {
+            var sendingData = new
+            {
+                action = "DeleteUser",
+                user_id = user_id,
+                jwt = await SecureStorage.Default.GetAsync("JWTToken")
+            };
+
+            var jsonContent = JsonSerializer.Serialize(sendingData);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync(url, content);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
+            deserializedResponse.obj = JsonSerializer.Deserialize<List<UserInfo>>(deserializedResponse.obj.ToString());
+        }
     }
 }
