@@ -19,6 +19,20 @@ public partial class AdminPage : ContentPage
     {
         base.OnAppearing();
         await ShowAllLookingToPlay();
+        await ShowAllUsers();
+    }
+
+    public async Task ShowAllUsers()
+    {
+        UsersScrollView.Children.Clear();
+        try
+        {
+
+        }
+        catch (Exception ex) 
+        { 
+            await DisplayAlert("OK","AdminPage:" + ex.Message,"OK");
+        }
     }
 
 
