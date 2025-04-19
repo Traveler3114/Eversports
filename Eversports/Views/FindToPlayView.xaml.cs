@@ -55,7 +55,7 @@ public partial class FindToPlayView : ContentView
 
     private string page;
     private readonly LookingToPlayService _lookingToPlayService;
-    public FindToPlayView(string _page)
+    public FindToPlayView(string _page,int id,string country,string city,string name,string surname,string email,string date,string toTime,string fromTime,string sports)
 	{
 		InitializeComponent();
         page = _page;

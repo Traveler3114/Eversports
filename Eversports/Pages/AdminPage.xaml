@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Eversports.Pages.AdminPage"
              Title="Admin">
-    <HorizontalStackLayout>
-        <ScrollView>
+    <Grid ColumnDefinitions="2*,3*">
+        <!-- 2/5 and 3/5 split -->
+        <ScrollView Grid.Column="0" Orientation="Vertical">
             <StackLayout x:Name="FindToPlayScrollView"/>
         </ScrollView>
-        <ScrollView>
+        <ScrollView Grid.Column="1" Orientation="Vertical">
             <StackLayout x:Name="UsersScrollView"/>
         </ScrollView>
-    </HorizontalStackLayout>
-
+    </Grid>
 </ContentPage>
