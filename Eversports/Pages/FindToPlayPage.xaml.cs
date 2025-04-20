@@ -245,10 +245,8 @@ public partial class FindToPlayPage : ContentPage
                         }
                     }
                     sportsString = string.Join(", ", sports);
+                    FindToPlayScrollView.Children.Add(new FindToPlayView("FindToPlayPage", id, country, city, name, surname, email, date, fromTime, toTime, sportsString));
                 }
-
-                FindToPlayView view = new FindToPlayView("FindToPlayPage", id, country, city, name, surname, email, date, fromTime, toTime, sportsString);
-                FindToPlayScrollView.Children.Add(view);
             }
             else
             {

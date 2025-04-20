@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -108,9 +109,22 @@ namespace Eversports.Services
 
             var response = await _client.PostAsync(url, content);
             var responseContent = await response.Content.ReadAsStringAsync();
+        }
 
-            var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
-            deserializedResponse.obj = JsonSerializer.Deserialize<List<UserInfo>>(deserializedResponse.obj.ToString());
+        public async Task<Dictionary<string,string>?> VerifyToken()
+        {
+            var sendingData = new
+            {
+                action = "VerifyToken",
+                jwt = await SecureStorage.Default.GetAsync("JWTToken")
+            };
+
+            var jsonContent = JsonSerializer.Serialize(sendingData);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync(url, content);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
     }
 }

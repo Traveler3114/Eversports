@@ -34,7 +34,7 @@ public partial class AdminPage : ContentPage
             var UserList = response.obj as List<UserInfo>;
             foreach(var user in UserList)
             {
-                FindToPlayScrollView.Children.Add(new UserView(user.id,user.name,user.surname,user.email));
+                UsersScrollView.Children.Add(new UserView(user.id,user.name,user.surname,user.email,async ()=>await ShowAllUsers() ));
             }
         }
         catch (Exception ex) 
@@ -67,7 +67,6 @@ public partial class AdminPage : ContentPage
             if (response.status == "success")
             {
                 XDocument doc = response.obj as XDocument;
-
                 foreach (XElement item in doc.Descendants("item"))
                 {
                     id = Convert.ToInt32(item.Element("id")!.Value);
@@ -98,10 +97,8 @@ public partial class AdminPage : ContentPage
                         }
                     }
                     sportsString = string.Join(", ", sports);
-                }
-
-                FindToPlayView view = new FindToPlayView("AdminPage", id, country, city, name, surname, email, date, fromTime, toTime, sportsString);
-                FindToPlayScrollView.Children.Add(view);
+                    FindToPlayScrollView.Children.Add(new FindToPlayView("AdminPage", id, country, city, name, surname, email, date, fromTime, toTime, sportsString, async ()=>await ShowAllLookingToPlay() ));
+                }            
             }
             else
             {

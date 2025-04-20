@@ -10,7 +10,8 @@ public partial class FindToPlayView : ContentView
 
     private string page;
     private readonly LookingToPlayService _lookingToPlayService;
-    public FindToPlayView(string _page,int id,string country,string city,string name,string surname,string email,string date,string toTime,string fromTime,string sports)
+    private Action action;
+    public FindToPlayView(string _page,int id,string country,string city,string name,string surname,string email,string date,string toTime,string fromTime,string sports,Action? _action=null)
 	{
 		InitializeComponent();
         lookingtoplay_id = id;
@@ -25,6 +26,7 @@ public partial class FindToPlayView : ContentView
         ToTime.Text = toTime;
         FromTime.Text = fromTime;
         Sports.Text = sports;
+        action = _action;
 	}
 
     private async void OnTapped(object sender, EventArgs e)
@@ -36,6 +38,7 @@ public partial class FindToPlayView : ContentView
         else
         {
             await _lookingToPlayService.DeleteLookingToPlay(lookingtoplay_id);
+            action();
         }
     }
 }
