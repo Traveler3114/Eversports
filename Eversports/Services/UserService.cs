@@ -115,7 +115,7 @@ namespace Eversports.Services
         {
             var sendingData = new
             {
-                action = "VerifyToken",
+                action = "verifyToken",
                 jwt = await SecureStorage.Default.GetAsync("JWTToken")
             };
 

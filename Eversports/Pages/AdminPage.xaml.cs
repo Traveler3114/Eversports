@@ -31,10 +31,13 @@ public partial class AdminPage : ContentPage
         try
         {
             var response = await _userService.GetAllUsers();
-            var UserList = response.obj as List<UserInfo>;
-            foreach(var user in UserList)
+            if (response.status == "success")
             {
-                UsersScrollView.Children.Add(new UserView(user.id,user.name,user.surname,user.email,async ()=>await ShowAllUsers() ));
+                var UserList = response.obj as List<UserInfo>;
+                foreach (var user in UserList)
+                {
+                    UsersScrollView.Children.Add(new UserView(user.id, user.name, user.surname, user.email, async () => await ShowAllUsers()));
+                }
             }
         }
         catch (Exception ex) 
@@ -100,10 +103,10 @@ public partial class AdminPage : ContentPage
                     FindToPlayScrollView.Children.Add(new FindToPlayView("AdminPage", id, country, city, name, surname, email, date, fromTime, toTime, sportsString, async ()=>await ShowAllLookingToPlay() ));
                 }            
             }
-            else
-            {
-                await DisplayAlert("Error", response.obj as String, "OK");
-            }
+            //else
+            //{
+            //    await DisplayAlert("Error", response.obj as String, "OK");
+            //}
         }
         catch (Exception ex)
         {

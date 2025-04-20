@@ -22,7 +22,6 @@ public partial class LoginPage : ContentPage
     }
 
 
-
     private async void OnLoginButtonClicked(object sender, EventArgs e)
 	{
         if (string.IsNullOrEmpty(EmailEntry.Text) || string.IsNullOrEmpty(PasswordEntry.Text))
@@ -34,7 +33,7 @@ public partial class LoginPage : ContentPage
 #if DEBUG
             if (EmailEntry.Text == "admin" && PasswordEntry.Text == "admin")
             {
-                ((App)Application.Current!)?.SetToAppShellMain();
+                
                 return;
             }
 #endif
