@@ -65,7 +65,7 @@ namespace Eversports.Services
             {
                 action=action,
                 jwt= await SecureStorage.Default.GetAsync("JWTToken"),
-                user =user,
+                user =user
             };
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
