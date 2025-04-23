@@ -5,6 +5,9 @@ using Eversports.Services;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.ApplicationModel.Communication;
 using System.Diagnostics.Metrics;
+using System;
+using System.Text.Json;
+using System.Text;
 
 namespace Eversports.Pages;
 
@@ -113,5 +116,48 @@ public partial class AdminPage : ContentPage
             await DisplayAlert("Error", "FindToPlayPage:" + ex.Message, "OK");
         }
     }
+
+    private async void OnGetPDFClicked(object sender, EventArgs e)
+    {
+
+
+        var url = "http://traveler3114.ddns.net/EversportsAPI/"; // Adjust if needed
+        var _client = new HttpClient();
+
+        var sendingData = new
+        {
+            action = "ExportInPDF",
+        };
+
+        var jsonContent = JsonSerializer.Serialize(sendingData);
+        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+        try
+        {
+            // Send GET or POST depending on your PHP implementation
+            var response = await _client.PostAsync(url,content);
+            response.EnsureSuccessStatusCode();
+
+            var pdfBytes = await response.Content.ReadAsByteArrayAsync();
+
+            var fileName = "tables.pdf";
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string filePath = Path.Combine(desktopPath, fileName);
+
+            File.WriteAllBytes(filePath, pdfBytes);
+
+            await DisplayAlert("Success", $"PDF saved to: {filePath}", "Open");
+
+            await Launcher.Default.OpenAsync(new OpenFileRequest
+            {
+                File = new ReadOnlyFile(filePath)
+            });
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", ex.Message, "OK");
+        }
+    }
+
 
 }

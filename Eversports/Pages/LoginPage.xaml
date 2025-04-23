@@ -4,6 +4,8 @@
              x:Class="Eversports.Pages.LoginPage">
     <Grid Padding="30" RowSpacing="20">
 
+        
+        
         <!-- Definiranje koliko redova Grid ima i njihova svojstvva -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -30,5 +32,6 @@
                 Text="Login"
                 Clicked="OnLoginButtonClicked"
                 HorizontalOptions="Fill" />
+
     </Grid>
 </ContentPage>

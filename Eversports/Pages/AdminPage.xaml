@@ -3,27 +3,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Eversports.Pages.AdminPage"
              Title="Admin"
-             Padding="0">
+             Padding="10">
 
-    <Grid ColumnDefinitions="2*,3*"
-          RowDefinitions="*"
-          VerticalOptions="Fill"
+
+
+
+    <Grid VerticalOptions="Fill"
           HorizontalOptions="Fill">
 
-        <!-- Left ScrollView -->
-        <ScrollView Grid.Column="0"
-                    Orientation="Vertical"
-                    VerticalOptions="Fill"
-                    HorizontalOptions="Fill">
-            <StackLayout x:Name="FindToPlayScrollView" />
-        </ScrollView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <!-- Right ScrollView -->
-        <ScrollView Grid.Column="1"
+
+        <Button Grid.Row="0" x:Name="GetPDF" 
+                Text="Generate PDF" 
+                Clicked="OnGetPDFClicked"
+                Padding="10"/>
+
+        <HorizontalStackLayout Grid.Row="1">
+            <ScrollView
                     Orientation="Vertical"
                     VerticalOptions="Fill"
                     HorizontalOptions="Fill">
-            <StackLayout x:Name="UsersScrollView" />
-        </ScrollView>
+                <StackLayout x:Name="FindToPlayScrollView">
+                </StackLayout>
+            </ScrollView>
+
+            <ScrollView
+                    Orientation="Vertical"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Fill">
+                <StackLayout x:Name="UsersScrollView">
+                </StackLayout>
+            </ScrollView>
+        </HorizontalStackLayout>
     </Grid>
 </ContentPage>
