@@ -1,0 +1,16 @@
+{
+  "ExtendedData": {
+    "inputs": [
+      "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, CountriesAPI"
+    ],
+    "targetFramework": "net9.0",
+    "typeReuseMode": "None"
+  }
+}

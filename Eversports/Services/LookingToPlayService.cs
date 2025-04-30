@@ -18,6 +18,7 @@ namespace Eversports.Services
 
         public LookingToPlayService()
         {
+
             _client = new HttpClient();
             url = "http://traveler3114.ddns.net/EversportsAPI/";
         }

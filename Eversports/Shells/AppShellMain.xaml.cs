@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Eversports.Models;
 using Microsoft.Maui.Controls;
+using Windows.Media.Protection.PlayReady;
 
 namespace Eversports.Shells;
 
@@ -40,6 +41,9 @@ public partial class AppShellMain : Shell
                 action = "verifyToken",
                 jwt = await SecureStorage.Default.GetAsync("JWTToken"),
             };
+
+
+
             var client = new HttpClient();
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");

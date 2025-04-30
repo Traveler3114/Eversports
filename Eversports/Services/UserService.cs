@@ -6,15 +6,19 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Eversports.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Eversports.Services
 {
     class UserService
     {
+
+
         private readonly HttpClient _client;
         private string url;
         public UserService()
         {
+
             _client = new HttpClient();
             url = "http://traveler3114.ddns.net/EversportsAPI/";
         }

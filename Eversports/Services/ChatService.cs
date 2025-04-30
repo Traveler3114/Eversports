@@ -15,6 +15,7 @@ namespace Eversports.Services
         private readonly HttpClient _client;
         private string url;
         public ChatService() {
+
             _client = new HttpClient();
             url = "http://traveler3114.ddns.net/EversportsAPI/";
         }
