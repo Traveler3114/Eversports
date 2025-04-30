@@ -198,6 +198,7 @@ public partial class LookingToPlayPage : ContentPage
         try
         {
             var response = await _lookingToPlayService.AddLookingToPlay(lookingToPlay);
+            await DisplayAlert("OK", response["message"], "OK");
         }
         catch (Exception ex) 
         {

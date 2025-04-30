@@ -28,12 +28,13 @@ namespace Eversports.Services
 
             var data = new
             {
-                lookingToPlay = lookingToPlay
+                lookingToPlay = lookingToPlay,
+                jwt=await SecureStorage.Default.GetAsync("JWTToken")
             };
 
             var jsonContent = JsonSerializer.Serialize(data);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/LookingToPlayFunctions/AddLookingToPlay", content);
+            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/LookingToPlayFunctions/AddLookingToPlay.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
@@ -41,13 +42,14 @@ namespace Eversports.Services
         {
             var data = new
             {
-                lookingtoplay_id = lookingtoplay_id
+                lookingtoplay_id = lookingtoplay_id,
+                jwt = await SecureStorage.Default.GetAsync("JWTToken")
             };
 
             var jsonContent = JsonSerializer.Serialize(data);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/LookingToPlayFunctions/DeleteLookingToPlay", content);
+            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/LookingToPlayFunctions/DeleteLookingToPlay.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             return JsonSerializer.Deserialize<Dictionary<string, string>?>(responseContent);
@@ -73,7 +75,7 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(data);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/LookingToPlayFunctions/GetLookingToPlay", content);
+            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/LookingToPlayFunctions/GetLookingToPlay.php", content);
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
@@ -99,7 +101,7 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(data);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/LookingToPlayFunctions/GetLookingToPlay", content);
+            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/LookingToPlayFunctions/GetLookingToPlay.php", content);
 
             var responseContent = await response.Content.ReadAsStringAsync();
 

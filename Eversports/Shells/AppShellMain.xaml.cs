@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Eversports.Models;
 using Microsoft.Maui.Controls;
-using Windows.Media.Protection.PlayReady;
 
 namespace Eversports.Shells;
 
@@ -38,7 +37,7 @@ public partial class AppShellMain : Shell
         {
             var sendingData = new
             {
-                action = "verifyToken",
+                action = "VerifyToken",
                 jwt = await SecureStorage.Default.GetAsync("JWTToken"),
             };
 
@@ -47,7 +46,7 @@ public partial class AppShellMain : Shell
             var client = new HttpClient();
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/", content);
+            var response = await client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/JWToken.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             var deserializedResponse = JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
             if (deserializedResponse["role"] == "user")
