@@ -24,7 +24,6 @@ namespace Eversports.Services
         {
             var sendingData = new
             {
-                action = action,
                 jwt = await SecureStorage.Default.GetAsync("JWTToken"),
                 lookingtoplay_id = lookingtoplay_id,
                 message = message
@@ -32,23 +31,22 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync(url, content);
+            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/Messaging/SendMessage", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
 
-        public async Task<Response?> GetAllMessages(string action,int lookingtoplay_id)
+        public async Task<Response?> GetMessages(string action,int lookingtoplay_id)
         {
             var sendingData = new
             {
-                action = action,
                 lookingtoplay_id = lookingtoplay_id,
             };
 
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync(url, content);
+            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/Messaging/GetMessages", content);
 
             var responseContent = await response.Content.ReadAsStringAsync();
 

@@ -33,7 +33,7 @@ public partial class AdminPage : ContentPage
         UsersScrollView.Children.Clear();
         try
         {
-            var response = await _userService.GetAllUsers();
+            var response = await _userService.GetUserData();
             if (response.status == "success")
             {
                 var UserList = response.obj as List<UserInfo>;
@@ -79,7 +79,7 @@ public partial class AdminPage : ContentPage
                     country = item.Element("country")!.Value;
                     city = item.Element("city")!.Value;
                     userId = Convert.ToInt32(item.Element("user_id")!.Value);
-                    Response response1 = await _userService.GetUserData("getUserData", userId);
+                    Response response1 = await _userService.GetUserData(userId);
                     name = (response1.obj as UserInfo).name;
                     surname = (response1.obj as UserInfo).surname;
                     email = (response1.obj as UserInfo).email;

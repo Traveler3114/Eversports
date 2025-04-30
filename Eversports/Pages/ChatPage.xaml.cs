@@ -61,7 +61,7 @@ public partial class ChatPage : ContentPage
         MessagesScrollView.Children.Clear();
         try
         {
-            var response = await _chatService.GetAllMessages("getAllMessages", lookingtoplay_id);
+            var response = await _chatService.GetMessages("getAllMessages", lookingtoplay_id);
             XDocument doc = response.obj as XDocument;
             //await DisplayAlert("OK", doc.ToString(), "OK");
 
@@ -73,9 +73,9 @@ public partial class ChatPage : ContentPage
 
 
                 UserService userService = new UserService();
-                var r = await userService.GetUserData("getUserData");
+                var r = await userService.GetUserData();
 
-                var ownerResponse= await userService.GetUserData("getUserData",ownerID);
+                var ownerResponse= await userService.GetUserData(ownerID);
 
                 string ownerName = (r.obj as UserInfo).name + " " + (r.obj as UserInfo).surname;
                 if ((r.obj as UserInfo).id == ownerID)

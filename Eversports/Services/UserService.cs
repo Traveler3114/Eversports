@@ -25,85 +25,87 @@ namespace Eversports.Services
 
         public async Task<Dictionary<string, string>?> RegisterUser(UserInfo user)
         {
-            return await SendUserData("register", user);
-        }
-
-        public async Task<Dictionary<string, string>?> LoginUser(UserInfo user)
-        {
-            return await SendUserData("login", user);
-        }
-
-        public async Task<Dictionary<string, string>?> SetUserData(UserInfo user)
-        {
-            return await SendUserData("setUserData", user);
-        }
-
-        public async Task<Response?> GetUserData(string action, int? userId = null)
-        {
             var sendingData = new
             {
-                action = action,
-                jwt = await SecureStorage.Default.GetAsync("JWTToken"),
-                user_id = userId
-            };
-
-            var jsonContent = JsonSerializer.Serialize(sendingData);
-            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-            var response = await _client.PostAsync(url, content);
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
-            deserializedResponse.obj = JsonSerializer.Deserialize<UserInfo>(deserializedResponse.obj.ToString());
-
-            return deserializedResponse;
-        }
-
-
-
-
-        private async Task<Dictionary<string, string>?> SendUserData(string action, UserInfo user)
-        {
-
-            var sendingData = new
-            {
-                action=action,
-                jwt= await SecureStorage.Default.GetAsync("JWTToken"),
-                user =user
+                user = user
             };
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync(url, content);
+            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/UserFunctions/Register.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
 
-        public async Task<Response?> GetAllUsers()
+        public async Task<Dictionary<string, string>?> LoginUser(UserInfo user)
         {
             var sendingData = new
             {
-                action = "GetAllUsers",
+                user = user
             };
-
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync(url, content);
+            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/UserFunctions/Login.php", content);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
+        }
+
+
+        public async Task<Dictionary<string, string>?> SetUserData(UserInfo user)
+        {
+            var sendingData = new
+            {
+                jwt = await SecureStorage.Default.GetAsync("JWTToken"),
+                user = user
+            };
+            var jsonContent = JsonSerializer.Serialize(sendingData);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/UserFunctions/SetUserData.php", content);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
+        }
+
+        public async Task<Response?> GetUserData(int? howmany = null)
+        {
+            var jwt = await SecureStorage.Default.GetAsync("JWTToken");
+
+            // Build the URL with the JWT and user_id (only if userId is not null)
+            var url = $"http://traveler3114.ddns.net/EversportsAPI/UserFunctions/GetUserData.php?jwt={jwt}";
+            if (howmany.HasValue)
+            {
+                url += $"&howmany={howmany}";
+            }
+
+            // Make the GET request
+            var response = await _client.GetAsync(url);
             var responseContent = await response.Content.ReadAsStringAsync();
 
+            // Deserialize the response
             var deserializedResponse = JsonSerializer.Deserialize<Response>(responseContent);
-            deserializedResponse.obj = JsonSerializer.Deserialize<List<UserInfo>>(deserializedResponse.obj.ToString());
-
+            
+            // Deserialize the object part (user info) if available
+            if (deserializedResponse != null && deserializedResponse.obj != null)
+            {
+                if (howmany==1)
+                {
+                    deserializedResponse.obj = JsonSerializer.Deserialize<UserInfo>(deserializedResponse.obj.ToString());                   
+                }
+                else
+                {
+                    deserializedResponse.obj = JsonSerializer.Deserialize<List<UserInfo>>(deserializedResponse.obj.ToString());
+                }
+            }
 
             return deserializedResponse;
         }
+
 
         public async Task DeleteUser(int user_id)
         {
             var sendingData = new
             {
-                action = "DeleteUser",
                 user_id = user_id,
                 jwt = await SecureStorage.Default.GetAsync("JWTToken")
             };
@@ -111,9 +113,13 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync(url, content);
+            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/UserFunctions/DeleteUser.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
         }
+
+
+
+
 
         public async Task<Dictionary<string,string>?> VerifyToken()
         {

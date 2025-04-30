@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -26,17 +27,19 @@ public partial class ProfilePage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        //NameEntry.Text=await SecureStorage.Default.GetAsync("JWTToken");
         await GetUserData();
     }
 
     public async Task GetUserData()
     {
+        
         try
         {
-            var response = await _userService.GetUserData("getUserData");
-
+            var response = await _userService.GetUserData(1);
             if (response != null && response.status == "success")
             {
+                
                 user = (response.obj as UserInfo);
                 NameEntry.Text = user!.name;
                 SurnameEntry.Text = user.surname;
