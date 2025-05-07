@@ -61,28 +61,49 @@ public partial class LookingToPlayPage : ContentPage
     protected async override void OnAppearing()
     {
         base.OnAppearing();
-        var soapClient = new CountryInfoServiceSoapTypeClient(CountryInfoServiceSoapTypeClient.EndpointConfiguration.CountryInfoServiceSoap);
 
-        List<string> countries=new List<string>();
-        List<string> countryCodes = new List<string>();
+        string cacheFilePath = Path.Combine(FileSystem.AppDataDirectory, "country_cities.json");
 
-        var response = await soapClient.ListOfCountryNamesByNameAsync();
-
-        
-
-        foreach (var country in response.Body.ListOfCountryNamesByNameResult)
+        if (File.Exists(cacheFilePath))
         {
-            countries.Add(country.sName);
-            countryCodes.Add(country.sISOCode);
+            // Load cached data
+            var json = await File.ReadAllTextAsync(cacheFilePath);
+            var cachedData = JsonSerializer.Deserialize<List<CountryCities>>(json);
+
+            foreach (var item in cachedData)
+            {
+                CountryPicker.Items.Add(item.Country);
+                countryAndCities[item.Country] = item.Cities;
+            }
         }
-
-
-
-        CountryPicker.ItemsSource = countries;
-
-        for (int i = 0; i < countryCodes.Count; i++)
+        else
         {
-            countryAndCities.Add(countries[i], await GetCityData(countryCodes[i]));
+            // First time: download and cache
+            var soapClient = new CountryInfoServiceSoapTypeClient(CountryInfoServiceSoapTypeClient.EndpointConfiguration.CountryInfoServiceSoap);
+
+            List<CountryCities> dataToCache = new List<CountryCities>();
+            var response = await soapClient.ListOfCountryNamesByNameAsync();
+
+            foreach (var country in response.Body.ListOfCountryNamesByNameResult)
+            {
+                string name = country.sName;
+                string iso = country.sISOCode;
+                var cities = await GetCityData(iso);
+
+                CountryPicker.Items.Add(name);
+                countryAndCities[name] = cities;
+
+                dataToCache.Add(new CountryCities
+                {
+                    Country = name,
+                    ISOCode = iso,
+                    Cities = cities
+                });
+            }
+
+            // Save to local file
+            var json = JsonSerializer.Serialize(dataToCache);
+            await File.WriteAllTextAsync(cacheFilePath, json);
         }
     }
 
