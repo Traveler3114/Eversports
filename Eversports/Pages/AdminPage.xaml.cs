@@ -120,7 +120,7 @@ public partial class AdminPage : ContentPage
     private async void OnGetPDFClicked(object sender, EventArgs e)
     {
 
-        var url = "http://traveler3114.ddns.net/EversportsAPI/"; // Adjust if needed
+        var url = "https://traveler3114.ddns.net/EversportsAPI/"; // Adjust if needed
         var _client = new HttpClient();
 
         var sendingData = new

@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Xml.Linq;
 using Eversports.Models;
 using Eversports.Services;
@@ -33,7 +34,7 @@ public partial class ChatPage : ContentPage
     {
         try
         {
-            var response = await _chatService.SendMessage("sendMessage", lookingtoplay_id, Message.Text);
+            var response = await _chatService.SendMessage( lookingtoplay_id, Message.Text);
             //await DisplayAlert("ok", response, "ok");
             Message.Text = "";
             if (response["status"] == "error")
@@ -61,7 +62,7 @@ public partial class ChatPage : ContentPage
         MessagesScrollView.Children.Clear();
         try
         {
-            var response = await _chatService.GetMessages("getAllMessages", lookingtoplay_id);
+            var response = await _chatService.GetMessages( lookingtoplay_id);
             XDocument doc = response.obj as XDocument;
             //await DisplayAlert("OK", doc.ToString(), "OK");
 

@@ -112,11 +112,17 @@ public partial class LookingToPlayPage : ContentPage
     {
         try
         {
-            using var client = new HttpClient();
+            var handler = new HttpClientHandler()
+            {
+                // Disable SSL certificate validation
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
+
+            var client = new HttpClient(handler);
             var url = $"http://api.geonames.org/searchJSON?country={countryCode}&featureClass=P&maxRows=10&username=traveler3114";
 
             var response = await client.GetStringAsync(url);
-            using JsonDocument doc = JsonDocument.Parse(response);
+            JsonDocument doc = JsonDocument.Parse(response);
 
             List<string> cityNames = new List<string>();
             foreach (var city in doc.RootElement.GetProperty("geonames").EnumerateArray())

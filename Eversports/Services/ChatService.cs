@@ -15,12 +15,17 @@ namespace Eversports.Services
         private readonly HttpClient _client;
         private string url;
         public ChatService() {
+            var handler = new HttpClientHandler()
+            {
+                // Disable SSL certificate validation
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
 
-            _client = new HttpClient();
-            url = "http://traveler3114.ddns.net/EversportsAPI/";
+            _client = new HttpClient(handler);
+            url = "https://traveler3114.ddns.net/EversportsAPI/";
         }
 
-        public async Task<Dictionary<string, string>?> SendMessage(string action, int lookingtoplay_id, string message)
+        public async Task<Dictionary<string, string>?> SendMessage(int lookingtoplay_id, string message)
         {
             var sendingData = new
             {
@@ -31,12 +36,12 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/Messaging/SendMessage", content);
+            var response = await _client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/Messaging/SendMessage", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
 
-        public async Task<Response?> GetMessages(string action,int lookingtoplay_id)
+        public async Task<Response?> GetMessages(int lookingtoplay_id)
         {
             var sendingData = new
             {
@@ -46,7 +51,7 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/Messaging/GetMessages", content);
+            var response = await _client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/Messaging/GetMessages", content);
 
             var responseContent = await response.Content.ReadAsStringAsync();
 

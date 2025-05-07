@@ -4,6 +4,8 @@ using System;
 using Eversports.Shells;
 using Eversports.Pages;
 using Eversports.Services;
+using System.Net.Security;
+using System.Net;
 
 namespace Eversports
 {

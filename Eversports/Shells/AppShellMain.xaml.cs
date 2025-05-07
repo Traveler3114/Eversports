@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -41,12 +42,17 @@ public partial class AppShellMain : Shell
                 jwt = await SecureStorage.Default.GetAsync("JWTToken"),
             };
 
+            var handler = new HttpClientHandler()
+            {
+                // Disable SSL certificate validation
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
 
 
-            var client = new HttpClient();
+            var client = new HttpClient(handler);
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("http://traveler3114.ddns.net/EversportsAPI/JWToken.php", content);
+            var response = await client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/JWToken.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             var deserializedResponse = JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
             if (deserializedResponse["role"] == "user")
