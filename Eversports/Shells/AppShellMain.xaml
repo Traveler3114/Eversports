@@ -4,10 +4,6 @@
        xmlns:local="clr-namespace:Eversports.Pages"
        x:Class="Eversports.Shells.AppShellMain"
        FlyoutBehavior="Flyout">
-    <!--<FlyoutItem Title="Sports">
-        <ShellContent
-            ContentTemplate="{DataTemplate local:SportsPage}" />
-    </FlyoutItem>-->
     <FlyoutItem Title="Find to play">
         <ShellContent 
             ContentTemplate="{DataTemplate local:FindToPlayPage}" />
