@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Eversports.Views"
+             xmlns:local="clr-namespace:Eversports.Resources"
              x:Class="Eversports.Pages.LookingToPlayPage"
              Title="Looking to play">
     <Grid Padding="30" RowSpacing="20">
@@ -16,20 +16,20 @@
         </Grid.RowDefinitions>
 
         <VerticalStackLayout Grid.Row="0">
-            <Label Text="Time"/>
+            <Label Text="{x:Static local:Strings.Time}"/>
             <DatePicker
                 x:Name="DatePicker"
                 HorizontalOptions="Fill"/>
             <HorizontalStackLayout Padding="20">
                 <HorizontalStackLayout>
-                    <Label Text="From "/>
+                    <Label Text="{x:Static local:Strings.From} "/>
                     <TimePicker
                         x:Name="FromTimePicker"
                         HorizontalOptions="Fill"
                         Margin="10,0"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout>
-                    <Label Text=" to "/>
+                    <Label Text="{x:Static local:Strings.To} "/>
                     <TimePicker
                         x:Name="ToTimePicker"
                         HorizontalOptions="Fill"
@@ -37,7 +37,7 @@
                 </HorizontalStackLayout>
             </HorizontalStackLayout>
             <Button
-                Text="Add Date and Time"
+                Text="{x:Static local:Strings.AddDateandTime}"
                 Clicked="OnAddDateTimeClicked"
                 HorizontalOptions="Fill"/>
             <HorizontalStackLayout x:Name="TimeStackLayout"/>
@@ -45,7 +45,7 @@
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="1" >
-            <Label Text="Location"/>
+            <Label Text="{x:Static local:Strings.Location}"/>
             <Picker
                 x:Name="CountryPicker"
                 HorizontalOptions="Fill"
@@ -57,7 +57,7 @@
                 Margin="0,10"/>
             <Entry
                 x:Name="DetailedLocationEntry"
-                Placeholder="Detailed location (optional)"
+                Placeholder="{x:Static local:Strings.DetailedLocation}"
                 HorizontalOptions="Fill"
                 Margin="0,10"/>
         </VerticalStackLayout>
@@ -72,7 +72,7 @@
         <Entry
             Grid.Row="3"
             x:Name="DescriptionEntry"
-            Placeholder="Description"
+            Placeholder="{x:Static local:Strings.Description}"
             HorizontalOptions="Fill"/>
 
         <Button 

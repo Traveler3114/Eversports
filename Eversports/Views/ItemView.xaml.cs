@@ -16,7 +16,7 @@ public partial class ItemView : ContentView
     private void OnRemoveButtonClicked(object sender, EventArgs e)
     {
         _removeItemAction.Invoke();
-        var parent = this.Parent as StackLayout;
+        var parent = this.Parent as Layout;
         if (parent != null)
         {
             parent.Children.Remove(this);

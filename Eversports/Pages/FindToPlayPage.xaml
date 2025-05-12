@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Eversports.Resources"
              x:Class="Eversports.Pages.FindToPlayPage"
              Title="Find to play">
     <Grid Padding="30" RowSpacing="20">
@@ -17,7 +18,7 @@
             <HorizontalStackLayout Padding="20">
 
                 <VerticalStackLayout>
-                    <Label Text="Time"/>
+                    <Label Text="{x:Static local:Strings.Time}"/>
                     <DatePicker
                     x:Name="DatePicker"
                     HorizontalOptions="Fill"/>
@@ -30,7 +31,7 @@
 
 
                 <VerticalStackLayout>
-                    <Label Text="From "/>
+                    <Label Text="{x:Static local:Strings.From} "/>
                     <TimePicker
                         x:Name="FromTimePicker"
                         HorizontalOptions="Fill"
@@ -44,7 +45,7 @@
 
 
                 <VerticalStackLayout>
-                    <Label Text="To "/>
+                    <Label Text="{x:Static local:Strings.To} "/>
                     <TimePicker
                         x:Name="ToTimePicker"
                         HorizontalOptions="Fill"
@@ -61,7 +62,7 @@
 
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="1" >
-            <Label Text="Location"/>
+            <Label Text="{x:Static local:Strings.Location}"/>
             <Picker
             x:Name="CountryPicker"
             HorizontalOptions="Fill"
