@@ -25,6 +25,7 @@ namespace Eversports
             }
             CultureInfo.DefaultThreadCurrentCulture = newCulture;
             CultureInfo.DefaultThreadCurrentUICulture = newCulture;
+
             if (Shell.Current is AppShellLogin) 
             {
                 ((App)Application.Current!)?.SetToAppShellLogin();
