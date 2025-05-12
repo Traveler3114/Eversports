@@ -65,4 +65,16 @@ public partial class AppShellMain : Shell
             await DisplayAlert("OK", ex.Message, "OK");
         }
     }
+
+
+    private void SetLanguageToHR(object sender, EventArgs e)
+    {
+        Localization.SetLanguage("hr");
+        //var currentRoute = Shell.Current?.CurrentState?.Location.OriginalString;
+        //DisplayAlert("OK", currentRoute, "OK");
+    }
+    private void SetLanguageToEN(object sender, EventArgs e)
+    {
+        Localization.SetLanguage("en");
+    }
 }

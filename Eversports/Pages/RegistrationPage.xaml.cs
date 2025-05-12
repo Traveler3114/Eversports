@@ -20,7 +20,7 @@ public partial class RegistrationPage : ContentPage
     // Make the event handler async
     private async void OnRegisterButtonClicked(object sender, EventArgs e)
     {
-        if(string.IsNullOrEmpty(NameEntry.Text) || string.IsNullOrEmpty(SurnameEntry.Text) || string.IsNullOrEmpty(EmailEntry.Text) || string.IsNullOrEmpty(PasswordEntry.Text) || string.IsNullOrEmpty(ConfirmPasswordEntry.Text))
+        if (string.IsNullOrEmpty(NameEntry.Text) || string.IsNullOrEmpty(SurnameEntry.Text) || string.IsNullOrEmpty(EmailEntry.Text) || string.IsNullOrEmpty(PasswordEntry.Text) || string.IsNullOrEmpty(ConfirmPasswordEntry.Text))
         {
             await DisplayAlert("Registration failed", "You didn't enter all the necessary data.", "OK");
         }

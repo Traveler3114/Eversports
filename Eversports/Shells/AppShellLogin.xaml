@@ -3,12 +3,26 @@
        xmlns:local="clr-namespace:Eversports.Pages"
        x:Class="Eversports.Shells.AppShellLogin"
        Shell.NavBarIsVisible="False">
-    <TabBar>
+    <!--<TabBar>
         <Tab>
             <ShellContent Title="Login" ContentTemplate="{DataTemplate local:LoginPage}" />
             <ShellContent Title="Register" ContentTemplate="{DataTemplate local:RegistrationPage}" />
         </Tab>
-    </TabBar>
+    </TabBar>-->
+    <FlyoutItem Title="Login">
+        <ShellContent 
+        ContentTemplate="{DataTemplate local:LoginPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Register">
+        <ShellContent 
+        ContentTemplate="{DataTemplate local:RegistrationPage}" />
+    </FlyoutItem>
+    <Shell.FlyoutFooter>
+        <HorizontalStackLayout Padding="20">
+            <Button Text="EN" Clicked="SetLanguageToEN"/>
+            <Button Text="HR" Clicked="SetLanguageToHR"/>
+        </HorizontalStackLayout>
+    </Shell.FlyoutFooter>
 </Shell>
 
 

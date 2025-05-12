@@ -21,8 +21,12 @@
             ContentTemplate="{DataTemplate local:AdminPage}" />
     </FlyoutItem>
     <Shell.FlyoutFooter>
-        <StackLayout Padding="20">
+        <VerticalStackLayout Padding="20">
             <Button Text="Sign Out" Clicked="OnLogoutClicked"/>
-        </StackLayout>
+            <HorizontalStackLayout Padding="20">
+                <Button Text="EN" Clicked="SetLanguageToEN"/>
+                <Button Text="HR" Clicked="SetLanguageToHR"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
     </Shell.FlyoutFooter>
 </Shell>
