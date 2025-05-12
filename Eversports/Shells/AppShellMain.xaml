@@ -2,17 +2,18 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:Eversports.Pages"
+       xmlns:res="clr-namespace:Eversports.Resources"
        x:Class="Eversports.Shells.AppShellMain"
        FlyoutBehavior="Flyout">
-    <FlyoutItem Title="Find to play">
+    <FlyoutItem Title="{x:Static res:Strings.Findtoplay}">
         <ShellContent 
             ContentTemplate="{DataTemplate local:FindToPlayPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Looking to play">
+    <FlyoutItem Title="{x:Static res:Strings.Lookingtoplay}">
         <ShellContent 
             ContentTemplate="{DataTemplate local:LookingToPlayPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Profile">
+    <FlyoutItem Title="{x:Static res:Strings.Profile}">
         <ShellContent 
             ContentTemplate="{DataTemplate local:ProfilePage}" />
     </FlyoutItem>
@@ -22,7 +23,7 @@
     </FlyoutItem>
     <Shell.FlyoutFooter>
         <VerticalStackLayout Padding="20">
-            <Button Text="Sign Out" Clicked="OnLogoutClicked"/>
+            <Button Text="{x:Static res:Strings.SignOut}" Clicked="OnLogoutClicked"/>
             <HorizontalStackLayout Padding="20">
                 <Button Text="EN" Clicked="SetLanguageToEN"/>
                 <Button Text="HR" Clicked="SetLanguageToHR"/>

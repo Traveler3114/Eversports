@@ -120,6 +120,12 @@
   <data name="AddDateandTime" xml:space="preserve">
     <value>Add Date and Time</value>
   </data>
+  <data name="AddFromTime" xml:space="preserve">
+    <value>Add FromTime</value>
+  </data>
+  <data name="AddToTime" xml:space="preserve">
+    <value>Add ToTime</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
   </data>
@@ -129,17 +135,32 @@
   <data name="DetailedLocation" xml:space="preserve">
     <value>Detailed location (optional)</value>
   </data>
+  <data name="Findtoplay" xml:space="preserve">
+    <value>Find to play</value>
+  </data>
   <data name="From" xml:space="preserve">
     <value>From</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Location</value>
   </data>
+  <data name="Lookingtoplay" xml:space="preserve">
+    <value>Looking to play</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Sign Out</value>
   </data>
   <data name="Surname" xml:space="preserve">
     <value>Surname</value>

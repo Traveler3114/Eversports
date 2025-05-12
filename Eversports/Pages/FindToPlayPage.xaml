@@ -38,7 +38,7 @@
                         Margin="10,0"/>
                     <StackLayout x:Name="FromTimeStackLayout"/>
                     <Button
-                        Text="Add FromTime"
+                        Text="{x:Static local:Strings.AddFromTime}"
                         Clicked="OnAddFromTimeClicked"
                         HorizontalOptions="Fill"/>
                 </VerticalStackLayout>
@@ -52,7 +52,7 @@
                         Margin="10,0"/>
                     <StackLayout x:Name="ToTimeStackLayout"/>
                     <Button
-                        Text="Add ToTime"
+                        Text="{x:Static local:Strings.AddToTime}"
                         Clicked="OnAddToTimeClicked"
                         HorizontalOptions="Fill"/>
                 </VerticalStackLayout>

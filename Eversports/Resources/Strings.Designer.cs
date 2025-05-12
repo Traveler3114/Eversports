@@ -70,6 +70,24 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add FromTime.
+        /// </summary>
+        internal static string AddFromTime {
+            get {
+                return ResourceManager.GetString("AddFromTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add ToTime.
+        /// </summary>
+        internal static string AddToTime {
+            get {
+                return ResourceManager.GetString("AddToTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm password.
         /// </summary>
         internal static string ConfirmPassword {
@@ -97,6 +115,15 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find to play.
+        /// </summary>
+        internal static string Findtoplay {
+            get {
+                return ResourceManager.GetString("Findtoplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         internal static string From {
@@ -115,6 +142,24 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Looking to play.
+        /// </summary>
+        internal static string Lookingtoplay {
+            get {
+                return ResourceManager.GetString("Lookingtoplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Profile.
+        /// </summary>
+        internal static string MyProfile {
+            get {
+                return ResourceManager.GetString("MyProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {
@@ -129,6 +174,24 @@ namespace Eversports.Resources {
         internal static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        internal static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Out.
+        /// </summary>
+        internal static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
             }
         }
         

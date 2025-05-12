@@ -120,6 +120,12 @@
   <data name="AddDateandTime" xml:space="preserve">
     <value>Dodaj datum i vrijeme</value>
   </data>
+  <data name="AddFromTime" xml:space="preserve">
+    <value>Dodaj vrijeme od</value>
+  </data>
+  <data name="AddToTime" xml:space="preserve">
+    <value>Dodaj vrijeme do</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Potvrdi lozinku</value>
   </data>
@@ -129,17 +135,32 @@
   <data name="DetailedLocation" xml:space="preserve">
     <value>Detalji lokacije(opcionalno)</value>
   </data>
+  <data name="Findtoplay" xml:space="preserve">
+    <value>Pronađi suigrače</value>
+  </data>
   <data name="From" xml:space="preserve">
     <value>Od</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Lokacija</value>
   </data>
+  <data name="Lookingtoplay" xml:space="preserve">
+    <value>Tražim suigrače</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Moj Profil</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Ime</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Lozinka</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Odjava</value>
   </data>
   <data name="Surname" xml:space="preserve">
     <value>Prezime</value>

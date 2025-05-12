@@ -7,7 +7,7 @@
             Padding="30,0"
             Spacing="25">
         <Label
-                Text="My Profile"
+                Text="{x:Static local:Strings.MyProfile}"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
         <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
