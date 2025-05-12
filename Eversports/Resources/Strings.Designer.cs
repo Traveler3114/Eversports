@@ -61,6 +61,15 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  Add Date.
+        /// </summary>
+        internal static string AddDate {
+            get {
+                return ResourceManager.GetString("AddDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Date and Time.
         /// </summary>
         internal static string AddDateandTime {
@@ -84,6 +93,15 @@ namespace Eversports.Resources {
         internal static string AddToTime {
             get {
                 return ResourceManager.GetString("AddToTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available on.
+        /// </summary>
+        internal static string AvailableOn {
+            get {
+                return ResourceManager.GetString("AvailableOn", resourceCulture);
             }
         }
         
@@ -219,6 +237,15 @@ namespace Eversports.Resources {
         internal static string To {
             get {
                 return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Want to play.
+        /// </summary>
+        internal static string Wanttoplay {
+            get {
+                return ResourceManager.GetString("Wanttoplay", resourceCulture);
             }
         }
     }

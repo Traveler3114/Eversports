@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Eversports.Resources"
              x:Class="Eversports.Pages.FindToPlayPage"
-             Title="Find to play">
+             Title="{x:Static local:Strings.Findtoplay}">
     <Grid Padding="30" RowSpacing="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -24,7 +24,7 @@
                     HorizontalOptions="Fill"/>
                     <StackLayout x:Name="DateStackLayout"/>
                     <Button
-                        Text="Add Date"
+                        Text="{x:Static local:Strings.AddDate}"
                         Clicked="OnAddDateClicked"
                         HorizontalOptions="Fill"/>
                 </VerticalStackLayout>

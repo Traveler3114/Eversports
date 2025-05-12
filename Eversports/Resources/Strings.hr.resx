@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddDate" xml:space="preserve">
+    <value>Dodaj datum</value>
+  </data>
   <data name="AddDateandTime" xml:space="preserve">
     <value>Dodaj datum i vrijeme</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="AddToTime" xml:space="preserve">
     <value>Dodaj vrijeme do</value>
+  </data>
+  <data name="AvailableOn" xml:space="preserve">
+    <value>Dostupan </value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Potvrdi lozinku</value>
@@ -170,5 +176,8 @@
   </data>
   <data name="To" xml:space="preserve">
     <value>do</value>
+  </data>
+  <data name="Wanttoplay" xml:space="preserve">
+    <value>Želim igrati:</value>
   </data>
 </root>

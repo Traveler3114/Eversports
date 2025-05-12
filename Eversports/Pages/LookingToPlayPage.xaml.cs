@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using CountriesAPI;
+using Eversports.Resources;
 
 namespace Eversports.Pages;
 
@@ -198,7 +199,7 @@ public partial class LookingToPlayPage : ContentPage
         if (!_availableDateTimes.Contains(dateTime))
         {
             _availableDateTimes.Add(dateTime);
-            string dateTimeEntry = $"{dateTime.Date} from {dateTime.FromTime} to {dateTime.ToTime}";
+            string dateTimeEntry = $"{dateTime.Date} {Strings.From} {dateTime.FromTime} {Strings.To} {dateTime.ToTime}";
             TimeStackLayout.Children.Add(new ItemView(dateTimeEntry, ()=>RemoveDateTime(dateTime)));
         }
         else

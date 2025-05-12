@@ -73,7 +73,8 @@ namespace Eversports.Services
                 Dates=Dates,
                 FromTimes=FromTimes,
                 ToTimes=ToTimes,
-                choosenSports=choosenSports
+                choosenSports=choosenSports,
+                jwt = await SecureStorage.Default.GetAsync("JWTToken")
             };
 
 
@@ -101,6 +102,7 @@ namespace Eversports.Services
             var data = new
             {
                 action = "GetAllLookingToPlay",
+                jwt = await SecureStorage.Default.GetAsync("JWTToken")
             };
 
             var jsonContent = JsonSerializer.Serialize(data);
@@ -122,6 +124,5 @@ namespace Eversports.Services
             }
             return deserializedResponse;
         }
-
     }
 }

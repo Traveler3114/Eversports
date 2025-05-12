@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddDate" xml:space="preserve">
+    <value> Add Date</value>
+  </data>
   <data name="AddDateandTime" xml:space="preserve">
     <value>Add Date and Time</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="AddToTime" xml:space="preserve">
     <value>Add ToTime</value>
+  </data>
+  <data name="AvailableOn" xml:space="preserve">
+    <value>Available on</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
@@ -170,5 +176,8 @@
   </data>
   <data name="To" xml:space="preserve">
     <value>to</value>
+  </data>
+  <data name="Wanttoplay" xml:space="preserve">
+    <value>Want to play</value>
   </data>
 </root>

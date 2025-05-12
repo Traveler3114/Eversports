@@ -79,7 +79,7 @@ public partial class AdminPage : ContentPage
                     country = item.Element("country")!.Value;
                     city = item.Element("city")!.Value;
                     userId = Convert.ToInt32(item.Element("user_id")!.Value);
-                    Response response1 = await _userService.GetUserData(userId);
+                    Response response1 = await _userService.GetUserData(1);
                     name = (response1.obj as UserInfo).name;
                     surname = (response1.obj as UserInfo).surname;
                     email = (response1.obj as UserInfo).email;
@@ -103,17 +103,17 @@ public partial class AdminPage : ContentPage
                         }
                     }
                     sportsString = string.Join(", ", sports);
-                    FindToPlayScrollView.Children.Add(new FindToPlayView("AdminPage", id, country, city, name, surname, email, date, fromTime, toTime, sportsString, async ()=>await ShowAllLookingToPlay() ));
-                }            
+                    FindToPlayScrollView.Children.Add(new FindToPlayView("AdminPage", id, country, city, name, surname, email, date, fromTime, toTime, sportsString, async () => await ShowAllLookingToPlay()));
+                }
             }
-            //else
-            //{
-            //    await DisplayAlert("Error", response.obj as String, "OK");
-            //}
+            else
+            {
+                await DisplayAlert("Error", response.obj as String, "OK");
+            }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "FindToPlayPage:" + ex.Message, "OK");
+            await DisplayAlert("Error", "AdminPage:" + ex.Message, "OK");
         }
     }
 

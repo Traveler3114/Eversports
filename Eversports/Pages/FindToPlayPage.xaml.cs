@@ -236,7 +236,7 @@ public partial class FindToPlayPage : ContentPage
 
         try
         {
-            var response = await _lookingToPlayService.GetAllLookingToPlay();
+            var response = await _lookingToPlayService.GetLookingToPlay(CountryPicker.SelectedItem.ToString(),CityPicker.SelectedItem.ToString(),Dates,FromTimes,ToTimes,_choosenSports);
             if (response.status == "success")
             {
                 XDocument doc = response.obj as XDocument;
@@ -247,7 +247,7 @@ public partial class FindToPlayPage : ContentPage
                     country = item.Element("country")!.Value;
                     city = item.Element("city")!.Value;
                     userId = Convert.ToInt32(item.Element("user_id")!.Value);
-                    Response response1 = await _userService.GetUserData(userId);
+                    Response response1 = await _userService.GetUserData(1);
                     name = (response1.obj as UserInfo).name;
                     surname = (response1.obj as UserInfo).surname;
                     email = (response1.obj as UserInfo).email;
