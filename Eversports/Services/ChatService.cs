@@ -43,8 +43,8 @@ namespace Eversports.Services
 
         public async Task<Response?> GetMessages(int lookingtoplay_id)
         {
-
-            var response = await _client.GetAsync($"https://traveler3114.ddns.net/EversportsAPI/Messaging/GetMessages.php?lookingtoplayid={lookingtoplay_id}");
+            string jwt = await SecureStorage.Default.GetAsync("JWTToken");
+            var response = await _client.GetAsync($"https://traveler3114.ddns.net/EversportsAPI/Messaging/GetMessages.php?lookingtoplayid={lookingtoplay_id}&jwt={jwt}");
 
             var responseContent = await response.Content.ReadAsStringAsync();
 

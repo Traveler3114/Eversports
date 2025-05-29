@@ -77,7 +77,7 @@ namespace Eversports.Services
             var jwt = await SecureStorage.Default.GetAsync("JWTToken");
 
             // Build the URL with the JWT and user_id (only if userId is not null)
-            var url = $"https://traveler3114.ddns.net/EversportsAPI/UserFunctions/GetUserData.php";
+            var url = $"https://traveler3114.ddns.net/EversportsAPI/UserFunctions/GetUserData.php?jwt={jwt}";
             if (userid.HasValue)
             {
                 url += $"?userid={userid}";
