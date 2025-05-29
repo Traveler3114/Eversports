@@ -36,22 +36,15 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/Messaging/SendMessage", content);
+            var response = await _client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/Messaging/SendMessage.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
 
         public async Task<Response?> GetMessages(int lookingtoplay_id)
         {
-            var sendingData = new
-            {
-                lookingtoplay_id = lookingtoplay_id,
-            };
 
-            var jsonContent = JsonSerializer.Serialize(sendingData);
-            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-            var response = await _client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/Messaging/GetMessages", content);
+            var response = await _client.GetAsync($"https://traveler3114.ddns.net/EversportsAPI/Messaging/GetMessages.php?lookingtoplayid={lookingtoplay_id}");
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
