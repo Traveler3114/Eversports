@@ -80,7 +80,7 @@ namespace Eversports.Services
             var url = $"https://traveler3114.ddns.net/EversportsAPI/UserFunctions/GetUserData.php?jwt={jwt}";
             if (userid.HasValue)
             {
-                url += $"?userid={userid}";
+                url += $"&userid={userid}";
             }
 
             // Make the GET request
