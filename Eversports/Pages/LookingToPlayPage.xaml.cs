@@ -210,16 +210,23 @@ public partial class LookingToPlayPage : ContentPage
 
     public async void OnCreateButtonClicked(object sender, EventArgs e)
     {
-
+        if ((_availableDateTimes == null || !_availableDateTimes.Any()) ||
+            CountryPicker.SelectedItem == null || string.IsNullOrWhiteSpace(CountryPicker.SelectedItem.ToString()) ||
+            CityPicker.SelectedItem == null || string.IsNullOrWhiteSpace(CityPicker.SelectedItem.ToString()) ||
+            (_choosenSports == null || !_choosenSports.Any()))
+        {
+            await DisplayAlert("Validation Error", "Please fill in all required fields before submitting.", "OK");
+            return;
+        }
 
         LookingToPlay lookingToPlay = new LookingToPlay()
         {
             availableDateTimes = _availableDateTimes,
             country = CountryPicker.SelectedItem.ToString(),
             city = CityPicker.SelectedItem.ToString(),
-            detailedLocation = DetailedLocationEntry.Text,
-            choosenSports=_choosenSports,
-            description = DescriptionEntry.Text,
+            detailedLocation = DetailedLocationEntry.Text, // Can be empty
+            choosenSports = _choosenSports,
+            description = DescriptionEntry.Text,             // Can be empty
             jwt = await SecureStorage.Default.GetAsync("JWTToken")
         };
 
@@ -228,9 +235,10 @@ public partial class LookingToPlayPage : ContentPage
             var response = await _lookingToPlayService.AddLookingToPlay(lookingToPlay);
             await DisplayAlert("OK", response["message"], "OK");
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             await DisplayAlert("Error", "LookingToPlayPage: " + ex.Message, "OK");
         }
     }
+
 }

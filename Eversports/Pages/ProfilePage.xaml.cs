@@ -33,10 +33,10 @@ public partial class ProfilePage : ContentPage
 
     public async Task GetUserData()
     {
-        
+
         try
         {
-            var response = await _userService.GetUserData(1);
+            var response = await _userService.GetUserData(false);
             if (response != null && response.status == "success")
             {
                 

@@ -16,8 +16,6 @@ namespace Eversports.Pages
         private int _lookingToPlayId;
         private System.Timers.Timer? _messageUpdateTimer;
 
-        // Cache user data to avoid redundant calls
-        private Dictionary<int, UserInfo> _userCache = new();
 
         public ChatPage(int lookingToPlayId)
         {
@@ -31,7 +29,6 @@ namespace Eversports.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await InitializeUserCache();
             UpdateMessages();
         }
 
@@ -42,22 +39,6 @@ namespace Eversports.Pages
             _messageUpdateTimer?.Dispose();
         }
 
-        private async Task InitializeUserCache()
-        {
-            try
-            {
-                var currentUserResponse = await _userService.GetUserData();
-                var currentUser = currentUserResponse.obj as UserInfo;
-                if (currentUser != null && !_userCache.ContainsKey(currentUser.id))
-                {
-                    _userCache[currentUser.id] = currentUser;
-                }
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Error", $"User cache initialization failed: {ex.Message}", "OK");
-            }
-        }
 
         private void BackButton_Clicked(object sender, EventArgs e)
         {
@@ -116,28 +97,22 @@ namespace Eversports.Pages
                     int ownerID = Convert.ToInt32(item.Element("sender_id")!.Value);
                     string message = item.Element("encrypted_message")!.Value;
 
-                    if (!_userCache.ContainsKey(ownerID))
+                    var currentUserResponse = await _userService.GetUserData(false);
+                    var currentUser = currentUserResponse.obj as UserInfo;
+
+                    var MessageOwnerResponse= await _userService.GetUserData(false,ownerID);
+                    var Owner= MessageOwnerResponse.obj as UserInfo;
+                    var ownerName = Owner.name;
+
+                    if (ownerID == currentUser.id)
                     {
-                        var ownerResponse = await _userService.GetUserData(ownerID);
-                        var ownerInfo = ownerResponse.obj as UserInfo;
-                        if (ownerInfo != null)
-                        {
-                            _userCache[ownerID] = ownerInfo;
-                        }
+                        MessagesScrollView.Children.Add(new MessageView(ownerName, message, Color.FromRgb(0, 255, 0)));
                     }
-
-                    var owner = _userCache[ownerID];
-                    string ownerName = owner.name + " " + owner.surname;
-
-                    var currentUser = _userCache.ContainsKey(owner.id) ? _userCache[owner.id] : null;
-
-                    // Message bubble color: green if current user, blue if other
-                    Color bubbleColor = (currentUser != null && currentUser.id == ownerID) ? Color.FromRgb(0, 255, 0) : Color.FromRgb(0, 0, 255);
-
-                    // If messages are encrypted, decrypt here
-                    // string decryptedMessage = Decrypt(message); // implement if needed
-
-                    MessagesScrollView.Children.Add(new MessageView(ownerName, message, bubbleColor));
+                    else
+                    {
+                        MessagesScrollView.Children.Add(new MessageView(ownerName, message, Color.FromRgb(0, 0, 255)));
+                    }
+                    
                 }
             }
             catch (Exception ex)

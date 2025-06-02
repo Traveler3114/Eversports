@@ -108,6 +108,10 @@ public partial class FindToPlayPage : ContentPage
             var json = JsonSerializer.Serialize(dataToCache);
             await File.WriteAllTextAsync(cacheFilePath, json);
         }
+        CountryPicker.SelectedItem = "Croatia"; // Or any default you prefer
+
+        CityPicker.SelectedItem = "Zagreb"; // Or any default you prefer
+
     }
 
     public async Task<List<string>> GetCityData(string countryCode)
@@ -246,7 +250,7 @@ public partial class FindToPlayPage : ContentPage
                     country = item.Element("country")!.Value;
                     city = item.Element("city")!.Value;
                     userId = Convert.ToInt32(item.Element("user_id")!.Value);
-                    Response response1 = await _userService.GetUserData(userId);
+                    Response response1 = await _userService.GetUserData(false,userId);
                     name = (response1.obj as UserInfo).name;
                     surname = (response1.obj as UserInfo).surname;
                     email = (response1.obj as UserInfo).email;

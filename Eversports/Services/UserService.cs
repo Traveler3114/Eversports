@@ -72,12 +72,12 @@ namespace Eversports.Services
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
 
-        public async Task<Response?> GetUserData(int? userid = null)
+        public async Task<Response?> GetUserData(bool fetchall,int? userid = null)
         {
             var jwt = await SecureStorage.Default.GetAsync("JWTToken");
 
             // Build the URL with the JWT and user_id (only if userId is not null)
-            var url = $"https://traveler3114.ddns.net/EversportsAPI/UserFunctions/GetUserData.php?jwt={jwt}";
+            var url = $"https://traveler3114.ddns.net/EversportsAPI/UserFunctions/GetUserData.php?jwt={jwt}&fetchall={fetchall}";
             if (userid.HasValue)
             {
                 url += $"&userid={userid}";
@@ -93,7 +93,7 @@ namespace Eversports.Services
             // Deserialize the object part (user info) if available
             if (deserializedResponse != null && deserializedResponse.obj != null)
             {
-                if (userid != null)
+                if (fetchall==false)
                 {
                     deserializedResponse.obj = JsonSerializer.Deserialize<UserInfo>(deserializedResponse.obj.ToString());                   
                 }
