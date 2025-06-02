@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ServiceModel.Channels;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Eversports.Models;
@@ -13,6 +14,7 @@ namespace Eversports.Pages
     {
         private readonly ChatService _chatService;
         private readonly UserService _userService;
+        private Dictionary<int, Dictionary<int, string>> messages = new Dictionary<int, Dictionary<int, string>>();
         private int _lookingToPlayId;
         private System.Timers.Timer? _messageUpdateTimer;
 
@@ -71,7 +73,7 @@ namespace Eversports.Pages
 
         private void UpdateMessages()
         {
-            _messageUpdateTimer = new System.Timers.Timer(3000);
+            _messageUpdateTimer = new System.Timers.Timer(500);
             _messageUpdateTimer.Elapsed += async (s, e) =>
             {
                 await MainThread.InvokeOnMainThreadAsync(ShowAllMessages);
@@ -84,36 +86,47 @@ namespace Eversports.Pages
         {
             try
             {
-                MessagesScrollView.Children.Clear();
-
                 var response = await _chatService.GetMessages(_lookingToPlayId);
                 XDocument doc = response.obj as XDocument;
 
                 if (doc == null)
                     return;
 
+                var currentUserResponse = await _userService.GetUserData(false);
+                var currentUser = currentUserResponse.obj as UserInfo;
+
                 foreach (XElement item in doc.Descendants("item"))
                 {
+                    int messageID = Convert.ToInt32(item.Element("id")!.Value);
                     int ownerID = Convert.ToInt32(item.Element("sender_id")!.Value);
                     string message = item.Element("encrypted_message")!.Value;
 
-                    var currentUserResponse = await _userService.GetUserData(false);
-                    var currentUser = currentUserResponse.obj as UserInfo;
-
-                    var MessageOwnerResponse= await _userService.GetUserData(false,ownerID);
-                    var Owner= MessageOwnerResponse.obj as UserInfo;
-                    var ownerName = Owner.name;
-
-                    if (ownerID == currentUser.id)
+                    if (!messages.ContainsKey(messageID))
                     {
-                        MessagesScrollView.Children.Add(new MessageView(ownerName, message, Color.FromRgb(0, 255, 0)));
+                        messages[messageID] = new Dictionary<int, string>();
+                        messages[messageID][ownerID] = message;
+
+                        var messageOwnerResponse = await _userService.GetUserData(false, ownerID);
+                        var owner = messageOwnerResponse.obj as UserInfo;
+                        var ownerName = owner.name;
+
+                        var messageColor = (ownerID == currentUser.id)
+                            ? Color.FromRgb(0, 255, 0)
+                            : Color.FromRgb(0, 0, 255);
+
+                        MessagesScrollView.Children.Add(new MessageView(ownerName, message, messageColor));
                     }
-                    else
-                    {
-                        MessagesScrollView.Children.Add(new MessageView(ownerName, message, Color.FromRgb(0, 0, 255)));
-                    }
-                    
                 }
+
+                //if (MessagesScrollView.Children.Count > 0)
+                //{
+                //    await Task.Delay(50);
+                //    var lastMessage = MessagesScrollView.Children[MessagesScrollView.Children.Count - 1] as VisualElement;
+                //    if (lastMessage != null)
+                //    {
+                //        await MessagesScroll.ScrollToAsync(lastMessage, ScrollToPosition.End, true);
+                //    }
+                //}
             }
             catch (Exception ex)
             {

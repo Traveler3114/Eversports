@@ -36,7 +36,7 @@
                         x:Name="FromTimePicker"
                         HorizontalOptions="Fill"
                         Margin="10,0"/>
-                    <StackLayout x:Name="FromTimeStackLayout"/>
+                    <StackLayout x:Name="FromTimeStackLayout" HorizontalOptions="Center"/>
                     <Button
                         Text="{x:Static local:Strings.AddFromTime}"
                         Clicked="OnAddFromTimeClicked"
@@ -50,7 +50,7 @@
                         x:Name="ToTimePicker"
                         HorizontalOptions="Fill"
                         Margin="10,0"/>
-                    <StackLayout x:Name="ToTimeStackLayout"/>
+                    <StackLayout x:Name="ToTimeStackLayout" HorizontalOptions="Center"/>
                     <Button
                         Text="{x:Static local:Strings.AddToTime}"
                         Clicked="OnAddToTimeClicked"
