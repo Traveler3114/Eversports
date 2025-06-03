@@ -97,7 +97,7 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Available on.
+        ///   Looks up a localized string similar to Available on:.
         /// </summary>
         internal static string AvailableOn {
             get {
@@ -151,7 +151,7 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to From.
+        ///   Looks up a localized string similar to From:.
         /// </summary>
         internal static string From {
             get {
@@ -268,7 +268,7 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to to.
+        ///   Looks up a localized string similar to to:.
         /// </summary>
         internal static string To {
             get {
@@ -277,7 +277,7 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Want to play.
+        ///   Looks up a localized string similar to Want to play:.
         /// </summary>
         internal static string Wanttoplay {
             get {

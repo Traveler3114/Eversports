@@ -130,7 +130,7 @@
     <value>Dodaj vrijeme do</value>
   </data>
   <data name="AvailableOn" xml:space="preserve">
-    <value>Dostupan </value>
+    <value>Dostupan:</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Potvrdi lozinku</value>
@@ -148,7 +148,7 @@
     <value>Pronađi suigrače</value>
   </data>
   <data name="From" xml:space="preserve">
-    <value>Od</value>
+    <value>Od:</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Lokacija</value>
@@ -187,7 +187,7 @@
     <value>Vrijeme</value>
   </data>
   <data name="To" xml:space="preserve">
-    <value>do</value>
+    <value>do:</value>
   </data>
   <data name="Wanttoplay" xml:space="preserve">
     <value>Želim igrati:</value>

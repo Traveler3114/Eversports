@@ -130,7 +130,7 @@
     <value>Add ToTime</value>
   </data>
   <data name="AvailableOn" xml:space="preserve">
-    <value>Available on</value>
+    <value>Available on:</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
@@ -148,7 +148,7 @@
     <value>Find to play</value>
   </data>
   <data name="From" xml:space="preserve">
-    <value>From</value>
+    <value>From:</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Location</value>
@@ -187,10 +187,10 @@
     <value>Time</value>
   </data>
   <data name="To" xml:space="preserve">
-    <value>to</value>
+    <value>to:</value>
   </data>
   <data name="Wanttoplay" xml:space="preserve">
-    <value>Want to play</value>
+    <value>Want to play:</value>
   </data>
   <data name="YouAlreadyChose" xml:space="preserve">
     <value>You already chose</value>

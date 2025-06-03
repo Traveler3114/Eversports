@@ -37,13 +37,15 @@
             <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
                 <Label Text="{x:Static local:Strings.AvailableOn} "/>
                 <Label x:Name="Date" Text=" date "/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
                 <Label Text="{x:Static local:Strings.From} "/>
                 <Label x:Name="FromTime" Text=" fromtime "/>
                 <Label Text="{x:Static local:Strings.To} "/>
                 <Label x:Name="ToTime" Text=" totime "/>
             </HorizontalStackLayout>
             <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="{x:Static local:Strings.Wanttoplay} "/>
+                <Label Text="{x:Static local:Strings.Wanttoplay}"/>
                 <Label x:Name="Sports" Text="sports"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
