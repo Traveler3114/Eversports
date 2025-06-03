@@ -88,34 +88,37 @@ namespace Eversports.Pages
             try
             {
                 var response = await _chatService.GetMessages(_lookingToPlayId);
-                XDocument doc = response.obj as XDocument;
-
-                if (doc == null)
-                    return;
-
-                var currentUserResponse = await _userService.GetUserData(false);
-                var currentUser = currentUserResponse.obj as UserInfo;
-
-                foreach (XElement item in doc.Descendants("item"))
+                if (response.status != "error")
                 {
-                    int messageID = Convert.ToInt32(item.Element("id")!.Value);
-                    int ownerID = Convert.ToInt32(item.Element("sender_id")!.Value);
-                    string message = item.Element("encrypted_message")!.Value;
+                    XDocument doc = response.obj as XDocument;
 
-                    if (!messages.ContainsKey(messageID))
+                    if (doc == null)
+                        return;
+
+                    var currentUserResponse = await _userService.GetUserData(false);
+                    var currentUser = currentUserResponse.obj as UserInfo;
+
+                    foreach (XElement item in doc.Descendants("item"))
                     {
-                        messages[messageID] = new Dictionary<int, string>();
-                        messages[messageID][ownerID] = message;
+                        int messageID = Convert.ToInt32(item.Element("id")!.Value);
+                        int ownerID = Convert.ToInt32(item.Element("sender_id")!.Value);
+                        string message = item.Element("encrypted_message")!.Value;
 
-                        var messageOwnerResponse = await _userService.GetUserData(false, ownerID);
-                        var owner = messageOwnerResponse.obj as UserInfo;
-                        var ownerName = owner.name;
+                        if (!messages.ContainsKey(messageID))
+                        {
+                            messages[messageID] = new Dictionary<int, string>();
+                            messages[messageID][ownerID] = message;
 
-                        var messageColor = (ownerID == currentUser.id)
-                            ? Color.FromRgb(0, 255, 0)
-                            : Color.FromRgb(0, 0, 255);
+                            var messageOwnerResponse = await _userService.GetUserData(false, ownerID);
+                            var owner = messageOwnerResponse.obj as UserInfo;
+                            var ownerName = owner.name;
 
-                        MessagesScrollView.Children.Add(new MessageView(ownerName, message, messageColor));
+                            var messageColor = (ownerID == currentUser.id)
+                                ? Color.FromRgb(0, 255, 0)
+                                : Color.FromRgb(0, 0, 255);
+
+                            MessagesScrollView.Children.Add(new MessageView(ownerName, message, messageColor));
+                        }
                     }
                 }
 

@@ -54,10 +54,10 @@ namespace Eversports.Services
             {
                 deserializedResponse.obj = XDocument.Parse(deserializedResponse.obj.ToString());
             }
-            else
-            {
-                deserializedResponse.obj = deserializedResponse.obj.ToString();
-            }
+            //else
+            //{
+            //    deserializedResponse.obj = deserializedResponse.obj.ToString();
+            //}
             return deserializedResponse;
         }
     }
