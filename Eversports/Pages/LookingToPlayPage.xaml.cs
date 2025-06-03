@@ -178,12 +178,12 @@ public partial class LookingToPlayPage : ContentPage
             }
             else
             {
-                DisplayAlert("Error", "You already choose " + selectedSport, "OK");
+                DisplayAlert("Error", Strings.YouAlreadyChose+ ":" + selectedSport, "OK");
             }
         }
         else
         {
-            DisplayAlert("Too many sports", "I think you have already choosen to many sports, don't you? ", "OK");
+            DisplayAlert("Error", "I think you have already choosen to many sports, don't you? ", "OK");
         }
     }
 
@@ -204,7 +204,7 @@ public partial class LookingToPlayPage : ContentPage
         }
         else
         {
-            DisplayAlert("Error", "You already selected that date and time", "Ok");
+            DisplayAlert("Error", Strings.YouAlreadyChose + " " + dateTime.Date+ " " + dateTime.FromTime+" "+dateTime.ToTime, "Ok");
         }
     }
 
@@ -215,7 +215,7 @@ public partial class LookingToPlayPage : ContentPage
             CityPicker.SelectedItem == null || string.IsNullOrWhiteSpace(CityPicker.SelectedItem.ToString()) ||
             (_choosenSports == null || !_choosenSports.Any()))
         {
-            await DisplayAlert("Validation Error", "Please fill in all required fields before submitting.", "OK");
+            await DisplayAlert("Error", Strings.DataNotEntered, "OK");
             return;
         }
 
@@ -237,7 +237,7 @@ public partial class LookingToPlayPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "LookingToPlayPage: " + ex.Message, "OK");
+            await DisplayAlert("Error",ex.Message, "OK");
         }
     }
 

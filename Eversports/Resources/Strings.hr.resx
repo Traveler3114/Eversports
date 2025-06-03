@@ -135,6 +135,9 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Potvrdi lozinku</value>
   </data>
+  <data name="DataNotEntered" xml:space="preserve">
+    <value>Nisi unio sve potrebne podakte.</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Opis</value>
   </data>
@@ -153,6 +156,9 @@
   <data name="Lookingtoplay" xml:space="preserve">
     <value>Tražim suigrače</value>
   </data>
+  <data name="MessageCantBeEmpty" xml:space="preserve">
+    <value>Poruka ne smije biti prazna!</value>
+  </data>
   <data name="MyProfile" xml:space="preserve">
     <value>Moj Profil</value>
   </data>
@@ -162,8 +168,14 @@
   <data name="Password" xml:space="preserve">
     <value>Lozinka</value>
   </data>
+  <data name="PasswordsDontMatch" xml:space="preserve">
+    <value>Lozinke se ne podudaraju</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
+  </data>
+  <data name="RegistrationFailed" xml:space="preserve">
+    <value>Registracija neuspješna</value>
   </data>
   <data name="SignOut" xml:space="preserve">
     <value>Odjava</value>
@@ -179,5 +191,8 @@
   </data>
   <data name="Wanttoplay" xml:space="preserve">
     <value>Želim igrati:</value>
+  </data>
+  <data name="YouAlreadyChose" xml:space="preserve">
+    <value>Već si odabrao</value>
   </data>
 </root>

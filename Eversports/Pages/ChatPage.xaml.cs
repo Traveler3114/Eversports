@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using Eversports.Models;
 using Eversports.Services;
 using Eversports.Views;
+using Eversports.Resources;
 
 
 namespace Eversports.Pages
@@ -51,7 +52,7 @@ namespace Eversports.Pages
         {
             if (string.IsNullOrWhiteSpace(Message?.Text))
             {
-                await DisplayAlert("Error", "Message cannot be empty.", "OK");
+                await DisplayAlert("Error", Strings.MessageCantBeEmpty, "OK");
                 return;
             }
 
@@ -67,7 +68,7 @@ namespace Eversports.Pages
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", "ChatPage: " + ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

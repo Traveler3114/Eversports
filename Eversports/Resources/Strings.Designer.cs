@@ -115,6 +115,15 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You didn&apos;t enter all the necessary data..
+        /// </summary>
+        internal static string DataNotEntered {
+            get {
+                return ResourceManager.GetString("DataNotEntered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string Description {
@@ -169,6 +178,15 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message cannot be empty!.
+        /// </summary>
+        internal static string MessageCantBeEmpty {
+            get {
+                return ResourceManager.GetString("MessageCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Profile.
         /// </summary>
         internal static string MyProfile {
@@ -196,11 +214,29 @@ namespace Eversports.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passwords don&apos;t match.
+        /// </summary>
+        internal static string PasswordsDontMatch {
+            get {
+                return ResourceManager.GetString("PasswordsDontMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile.
         /// </summary>
         internal static string Profile {
             get {
                 return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration failed.
+        /// </summary>
+        internal static string RegistrationFailed {
+            get {
+                return ResourceManager.GetString("RegistrationFailed", resourceCulture);
             }
         }
         
@@ -246,6 +282,15 @@ namespace Eversports.Resources {
         internal static string Wanttoplay {
             get {
                 return ResourceManager.GetString("Wanttoplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You already chose.
+        /// </summary>
+        internal static string YouAlreadyChose {
+            get {
+                return ResourceManager.GetString("YouAlreadyChose", resourceCulture);
             }
         }
     }

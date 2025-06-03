@@ -6,6 +6,7 @@ using System;
 using System.Text.Json;
 using System.Xml.Linq;
 using CountriesAPI;
+using Eversports.Resources;
 
 namespace Eversports.Pages;
 
@@ -189,7 +190,7 @@ public partial class FindToPlayPage : ContentPage
             }
             else
             {
-                DisplayAlert("Error", "You already choose " + selectedSport, "OK");
+                DisplayAlert("Error", Strings.YouAlreadyChose+" " + selectedSport, "OK");
             }
         }
         else

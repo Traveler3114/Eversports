@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Eversports.Models;
 using Eversports.Services;
+using Eversports.Resources;
 
 namespace Eversports.Pages;
 
@@ -52,7 +53,7 @@ public partial class ProfilePage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "ProfilePage:" + ex.Message, "OK");
+            await DisplayAlert("Error", ex.Message, "OK");
         }
     }
 
@@ -73,18 +74,18 @@ public partial class ProfilePage : ContentPage
             {
                 if (response["status"] == "success")
                 {
-                    await DisplayAlert("Success", "ProfilePage:" + response["message"], "OK");
+                    await DisplayAlert("Success", response["message"], "OK");
                     user = changedUser;
                 }
                 else
                 {
-                    await DisplayAlert("Error", "ProfilePage:" + response["message"], "OK");
+                    await DisplayAlert("Error", response["message"], "OK");
                 }
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "ProfilePage:" + ex.Message, "OK");
+            await DisplayAlert("Error", ex.Message, "OK");
         }
 
     }
@@ -93,7 +94,7 @@ public partial class ProfilePage : ContentPage
     {
         if (string.IsNullOrEmpty(NameEntry.Text)|| string.IsNullOrEmpty(SurnameEntry.Text)|| string.IsNullOrEmpty(EmailEntry.Text)|| string.IsNullOrEmpty(PasswordEntry.Text))
         {
-            await DisplayAlert("Error", "Some required fields are empty ", "OK");
+            await DisplayAlert("Error", Strings.DataNotEntered, "OK");
         }
         else
         {

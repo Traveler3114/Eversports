@@ -45,7 +45,7 @@ public partial class AdminPage : ContentPage
         }
         catch (Exception ex) 
         { 
-            await DisplayAlert("OK","AdminPage:" + ex.Message,"OK");
+            await DisplayAlert("OK",ex.Message,"OK");
         }
     }
 

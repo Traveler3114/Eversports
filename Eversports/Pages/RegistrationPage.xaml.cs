@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Eversports.Resources;
 
 namespace Eversports.Pages;
 //BITNO!!!!!!
@@ -22,7 +23,7 @@ public partial class RegistrationPage : ContentPage
     {
         if (string.IsNullOrEmpty(NameEntry.Text) || string.IsNullOrEmpty(SurnameEntry.Text) || string.IsNullOrEmpty(EmailEntry.Text) || string.IsNullOrEmpty(PasswordEntry.Text) || string.IsNullOrEmpty(ConfirmPasswordEntry.Text))
         {
-            await DisplayAlert("Registration failed", "You didn't enter all the necessary data.", "OK");
+            await DisplayAlert(Strings.RegistrationFailed, Strings.DataNotEntered, "OK");
         }
         else
         {
@@ -32,7 +33,7 @@ public partial class RegistrationPage : ContentPage
             }
             else
             {
-                await DisplayAlert("Registration failed", "Passwords dont match", "OK");
+                await DisplayAlert(Strings.RegistrationFailed, Strings.PasswordsDontMatch, "OK");
             }
         }
     }
@@ -59,17 +60,17 @@ public partial class RegistrationPage : ContentPage
             {
                 if (response["status"] == "success")
                 {
-                    await DisplayAlert("Success", "RegistrationPage:" + response["message"], "OK");
+                    await DisplayAlert("Success", response["message"], "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Error", "RegistrationPage:" + response["message"], "OK");
+                    await DisplayAlert("Error", response["message"], "OK");
                 }
             }
         }
         catch (Exception ex) 
         {
-            await DisplayAlert("Error", "RegistrationPage:" + ex.Message, "OK");
+            await DisplayAlert("Error", ex.Message, "OK");
         }
     }
 }

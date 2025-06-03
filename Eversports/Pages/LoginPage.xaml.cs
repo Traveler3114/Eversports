@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Maui.ApplicationModel.Communication;
 using Eversports.Services;
+using Eversports.Resources;
 
 namespace Eversports.Pages;
 
@@ -26,7 +27,7 @@ public partial class LoginPage : ContentPage
 	{
         if (string.IsNullOrEmpty(EmailEntry.Text) || string.IsNullOrEmpty(PasswordEntry.Text))
         {
-            await DisplayAlert("Login failed", "You didn't enter all the necessary data.", "OK");
+            await DisplayAlert("Error", Strings.DataNotEntered, "OK");
         }
         else
         {
@@ -66,13 +67,13 @@ public partial class LoginPage : ContentPage
                 }
                 else
                 {
-                    await DisplayAlert("Error", "LoginPage:" + response["message"], "OK");
+                    await DisplayAlert("Error", response["message"], "OK");
                 }
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "LoginPage:" + ex.Message, "OK");
+            await DisplayAlert("Error", ex.Message, "OK");
         }
     }
 }
