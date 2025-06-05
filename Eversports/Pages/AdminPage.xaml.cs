@@ -120,21 +120,14 @@ public partial class AdminPage : ContentPage
     private async void OnGetPDFClicked(object sender, EventArgs e)
     {
 
-        var url = "https://traveler3114.ddns.net/EversportsAPI/"; // Adjust if needed
+        var url = "http://traveler3114.ddns.net/EversportsAPI/ExportInPDF.php"; // Adjust if needed
         var _client = new HttpClient();
 
-        var sendingData = new
-        {
-            action = "ExportInPDF",
-        };
-
-        var jsonContent = JsonSerializer.Serialize(sendingData);
-        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
         try
         {
             // Send GET or POST depending on your PHP implementation
-            var response = await _client.PostAsync(url,content);
+            var response = await _client.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
             var pdfBytes = await response.Content.ReadAsByteArrayAsync();
