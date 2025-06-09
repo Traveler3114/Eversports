@@ -122,15 +122,6 @@ namespace Eversports.Pages
                     }
                 }
 
-                //if (MessagesScrollView.Children.Count > 0)
-                //{
-                //    await Task.Delay(50);
-                //    var lastMessage = MessagesScrollView.Children[MessagesScrollView.Children.Count - 1] as VisualElement;
-                //    if (lastMessage != null)
-                //    {
-                //        await MessagesScroll.ScrollToAsync(lastMessage, ScrollToPosition.End, true);
-                //    }
-                //}
             }
             catch (Exception ex)
             {

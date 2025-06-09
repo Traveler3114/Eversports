@@ -225,62 +225,69 @@ public partial class FindToPlayPage : ContentPage
     {
         FindToPlayScrollView.Children.Clear();
 
-        // Declare all needed variables here
-        int id = 0;
-        string country = "";
-        string city = "";
-        int userId = 0;
-        string name = "";
-        string surname = "";
-        string email = "";
-        string date = "";
-        string fromTime = "";
-        string toTime = "";
-        string sportsString = "";
-
         try
         {
-            var response = await _lookingToPlayService.GetLookingToPlay(CountryPicker.SelectedItem.ToString(),CityPicker.SelectedItem.ToString(),Dates,FromTimes,ToTimes,_choosenSports);
+            var response = await _lookingToPlayService.GetLookingToPlay(CountryPicker.SelectedItem.ToString(), CityPicker.SelectedItem.ToString(), Dates, FromTimes, ToTimes, _choosenSports);
             if (response.status == "success")
             {
                 XDocument doc = response.obj as XDocument;
 
+                var tasks = new List<Task>();
+
                 foreach (XElement item in doc.Descendants("item"))
                 {
-                    id = Convert.ToInt32(item.Element("id")!.Value);
-                    country = item.Element("country")!.Value;
-                    city = item.Element("city")!.Value;
-                    userId = Convert.ToInt32(item.Element("user_id")!.Value);
-                    Response response1 = await _userService.GetUserData(false,userId);
-                    name = (response1.obj as UserInfo).name;
-                    surname = (response1.obj as UserInfo).surname;
-                    email = (response1.obj as UserInfo).email;
+                    // Kreiraj lokalne kopije varijabli za closure unutar taska
+                    int id = Convert.ToInt32(item.Element("id")!.Value);
+                    string country = item.Element("country")!.Value;
+                    string city = item.Element("city")!.Value;
+                    int userId = Convert.ToInt32(item.Element("user_id")!.Value);
 
-                    foreach (XElement availabledatetimes in item.Descendants("availabledatetimes"))
+                    tasks.Add(Task.Run(async () =>
                     {
-                        foreach (XElement availabledatetime in availabledatetimes.Descendants("availabledatetime"))
-                        {
-                            date = availabledatetime.Element("Date")!.Value;
-                            fromTime = availabledatetime.Element("FromTime")!.Value;
-                            toTime = availabledatetime.Element("ToTime")!.Value;
-                        }
-                    }
+                        // Dobij korisničke podatke paralelno
+                        var response1 = await _userService.GetUserData(false, userId);
+                        var user = response1.obj as UserInfo;
 
-                    List<string> sports = new List<string>();
-                    foreach (XElement choosenSports in item.Descendants("choosenSports"))
-                    {
-                        foreach (XElement sport in choosenSports.Descendants("sport"))
+                        // Paršaj vrijeme i sportove
+                        string name = user?.name ?? "";
+                        string surname = user?.surname ?? "";
+                        string email = user?.email ?? "";
+
+                        string date = "";
+                        string fromTime = "";
+                        string toTime = "";
+                        foreach (XElement availabledatetimes in item.Descendants("availabledatetimes"))
                         {
-                            sports.Add(sport.Element("name")!.Value);
+                            foreach (XElement availabledatetime in availabledatetimes.Descendants("availabledatetime"))
+                            {
+                                date = availabledatetime.Element("Date")!.Value;
+                                fromTime = availabledatetime.Element("FromTime")!.Value;
+                                toTime = availabledatetime.Element("ToTime")!.Value;
+                            }
                         }
-                    }
-                    sportsString = string.Join(", ", sports);
-                    FindToPlayScrollView.Children.Add(new FindToPlayView("FindToPlayPage", id, country, city, name, surname, email, date, toTime, fromTime, sportsString));
+
+                        List<string> sports = new List<string>();
+                        foreach (XElement choosenSports in item.Descendants("choosenSports"))
+                        {
+                            foreach (XElement sport in choosenSports.Descendants("sport"))
+                            {
+                                sports.Add(sport.Element("name")!.Value);
+                            }
+                        }
+                        string sportsString = string.Join(", ", sports);
+
+                        await MainThread.InvokeOnMainThreadAsync(() =>
+                        {
+                            FindToPlayScrollView.Children.Add(new FindToPlayView("FindToPlayPage", id, country, city, name, surname, email, date, toTime, fromTime, sportsString));
+                        });
+                    }));
                 }
+
+                await Task.WhenAll(tasks);
             }
             else
             {
-                await DisplayAlert("Error", response.obj as String, "OK");
+                await DisplayAlert("Error", response.obj as string, "OK");
             }
         }
         catch (Exception ex)
@@ -288,4 +295,5 @@ public partial class FindToPlayPage : ContentPage
             await DisplayAlert("Error", "FindToPlayPage:" + ex.Message, "OK");
         }
     }
+
 }
