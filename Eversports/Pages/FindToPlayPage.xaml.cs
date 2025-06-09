@@ -236,7 +236,6 @@ public partial class FindToPlayPage : ContentPage
 
                 foreach (XElement item in doc.Descendants("item"))
                 {
-                    // Kreiraj lokalne kopije varijabli za closure unutar taska
                     int id = Convert.ToInt32(item.Element("id")!.Value);
                     string country = item.Element("country")!.Value;
                     string city = item.Element("city")!.Value;
@@ -244,11 +243,9 @@ public partial class FindToPlayPage : ContentPage
 
                     tasks.Add(Task.Run(async () =>
                     {
-                        // Dobij korisničke podatke paralelno
                         var response1 = await _userService.GetUserData(false, userId);
                         var user = response1.obj as UserInfo;
 
-                        // Paršaj vrijeme i sportove
                         string name = user?.name ?? "";
                         string surname = user?.surname ?? "";
                         string email = user?.email ?? "";
