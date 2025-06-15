@@ -120,7 +120,7 @@ public partial class AdminPage : ContentPage
     private async void OnGetPDFClicked(object sender, EventArgs e)
     {
 
-        var url = "http://traveler3114.ddns.net/EversportsAPI/ExportInPDF.php"; // Adjust if needed
+        var url = "http://localhost/EversportsAPI/ExportInPDF.php"; // Adjust if needed
         var _client = new HttpClient();
 
 

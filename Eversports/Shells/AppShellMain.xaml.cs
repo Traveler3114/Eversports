@@ -52,7 +52,7 @@ public partial class AppShellMain : Shell
             var client = new HttpClient(handler);
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/JWToken.php", content);
+            var response = await client.PostAsync("https://localhost/EversportsAPI/JWToken.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             var deserializedResponse = JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
             if (deserializedResponse["role"] == "user")

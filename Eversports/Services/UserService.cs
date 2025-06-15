@@ -25,7 +25,7 @@ namespace Eversports.Services
             };
 
             _client = new HttpClient(handler);
-            url = "https://traveler3114.ddns.net/EversportsAPI/";
+            url = "https://localhost/EversportsAPI/";
         }
 
         public async Task<Dictionary<string, string>?> RegisterUser(UserInfo user)
@@ -37,7 +37,7 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/UserFunctions/Register.php", content);
+            var response = await _client.PostAsync("https://localhost/EversportsAPI/UserFunctions/Register.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
@@ -51,7 +51,7 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/UserFunctions/Login.php", content);
+            var response = await _client.PostAsync("https://localhost/EversportsAPI/UserFunctions/Login.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
@@ -67,7 +67,7 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/UserFunctions/SetUserData.php", content);
+            var response = await _client.PostAsync("https://localhost/EversportsAPI/UserFunctions/SetUserData.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
@@ -77,7 +77,7 @@ namespace Eversports.Services
             var jwt = await SecureStorage.Default.GetAsync("JWTToken");
 
             // Build the URL with the JWT and user_id (only if userId is not null)
-            var url = $"https://traveler3114.ddns.net/EversportsAPI/UserFunctions/GetUserData.php?jwt={jwt}&fetchall={fetchall}";
+            var url = $"https://localhost/EversportsAPI/UserFunctions/GetUserData.php?jwt={jwt}&fetchall={fetchall}";
             if (userid.HasValue)
             {
                 url += $"&userid={userid}";
@@ -118,7 +118,7 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/UserFunctions/DeleteUser.php", content);
+            var response = await _client.PostAsync("https://localhost/EversportsAPI/UserFunctions/DeleteUser.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
         }
 

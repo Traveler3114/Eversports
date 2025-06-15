@@ -22,7 +22,7 @@ namespace Eversports.Services
             };
 
             _client = new HttpClient(handler);
-            url = "https://traveler3114.ddns.net/EversportsAPI/";
+            url = "https://localhost/EversportsAPI/";
         }
 
         public async Task<Dictionary<string, string>?> SendMessage(int lookingtoplay_id, string message)
@@ -36,7 +36,7 @@ namespace Eversports.Services
             var jsonContent = JsonSerializer.Serialize(sendingData);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("https://traveler3114.ddns.net/EversportsAPI/Messaging/SendMessage.php", content);
+            var response = await _client.PostAsync("https://localhost/EversportsAPI/Messaging/SendMessage.php", content);
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
         }
@@ -44,7 +44,7 @@ namespace Eversports.Services
         public async Task<Response?> GetMessages(int lookingtoplay_id)
         {
             string jwt = await SecureStorage.Default.GetAsync("JWTToken");
-            var response = await _client.GetAsync($"https://traveler3114.ddns.net/EversportsAPI/Messaging/GetMessages.php?lookingtoplayid={lookingtoplay_id}&jwt={jwt}");
+            var response = await _client.GetAsync($"https://localhost/EversportsAPI/Messaging/GetMessages.php?lookingtoplayid={lookingtoplay_id}&jwt={jwt}");
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
