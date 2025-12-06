@@ -162,6 +162,12 @@ var handler = new HttpClientHandler()
 
 **⚠️ Security Warning**: This should be properly configured with valid certificates in production.
 
+**Production Recommendations:**
+- Remove the custom `ServerCertificateCustomValidationCallback`
+- Use proper SSL/TLS certificate validation
+- Consider implementing certificate pinning for additional security
+- Ensure the API server has valid, trusted SSL certificates
+
 ### Storage
 
 The app uses `SecureStorage` for storing sensitive data like JWT authentication tokens:
@@ -465,12 +471,37 @@ For support, questions, or feature requests:
 **Important Security Notes:**
 
 1. **SSL Certificate Validation**: Currently disabled for development. Enable proper certificate validation in production.
+   - Remove custom certificate validation callbacks
+   - Use trusted SSL/TLS certificates
+   - Consider implementing certificate pinning
 
-2. **Secure Storage**: JWT tokens are stored using platform-specific secure storage, but ensure your backend implements proper token expiration and refresh mechanisms.
+2. **Secure Storage**: JWT tokens are stored using platform-specific secure storage.
+   - Implement proper token expiration and refresh mechanisms on the backend
+   - Consider token rotation policies for enhanced security
+   - Set appropriate token lifetime based on security requirements
 
 3. **API Communication**: All API calls should use HTTPS in production environments.
+   - Implement rate limiting on API endpoints to prevent abuse
+   - Use API versioning for backward compatibility
+   - Monitor and log suspicious API activity
 
 4. **Input Validation**: Always validate user input on both client and server sides.
+   - Sanitize all user inputs to prevent XSS attacks
+   - Implement CSRF protection for state-changing operations
+   - Use parameterized queries to prevent SQL injection
+   - Validate file uploads (type, size, content)
+
+5. **Data Protection**:
+   - Encrypt sensitive data at rest in the database
+   - Use secure password hashing (bcrypt, Argon2) on the backend
+   - Implement proper access controls and authorization checks
+   - Follow GDPR and data privacy regulations where applicable
+
+6. **Authentication & Authorization**:
+   - Implement multi-factor authentication for enhanced security
+   - Use role-based access control (RBAC) consistently
+   - Implement account lockout after failed login attempts
+   - Log security-relevant events for audit purposes
 
 ## 🗺️ Roadmap
 
